@@ -17,7 +17,7 @@ test Test2(const test& t) {
 
 //Перегрузка оператора == для сравнения N == 0
 bool operator==(const test& t, int zero) {
-    return t.test.size() == 1 && t.test[0] == 0;
+    return t.test.size() == 1 && t.test[0] == zero;
 }
 
 // Перегрузка оператора == для сравнения 0 == N
