@@ -2,18 +2,16 @@
 #include <vector>
 #include <stdint.h>
 
-// for test. delete this
-#include <iostream>
-
 #ifndef DM_COLLOQUIUM_N_H
 #define DM_COLLOQUIUM_N_H
 
-struct test {
-  std::vector<uint8_t> test;
+struct N {
+  std::vector<uint8_t> digits;
 };
 
-test Test2(const test& t);
+uint8_t COM_NN_D(const N &n1, const N &n2);
 
-void Test();
+bool operator==(const N &n1, const N &n2);
+bool operator<(const N &n1, const N &n2);
 
 #endif
