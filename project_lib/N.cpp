@@ -13,6 +13,32 @@ test Test2(const test& t) {
 
   return result;
 }
+//Efimova
+
+//Перегрузка оператора == для сравнения N == 0
+bool operator==(const test& t, int zero) {
+    return t.test.size() == 1 && t.test[0] == 0;
+}
+
+// Перегрузка оператора == для сравнения 0 == N
+bool operator==(int zero, const test& t) {
+    return t == zero; // Используем предыдущую перегрузку
+}
+// Перегрузка оператора != для сравнения с N!=0
+bool operator!=(const test& t, int zero) {
+    return !(t == zero);
+}
+//Перегрузка оператора != для сравнения 0 != N
+bool operator!=(int zero, const test& t) {
+    return !(t == zero); // Позволяет сравнивать с 0 в обоих направлениях
+}
+
+//Функция для проверки, не равно ли число нулю
+bool NZER_N_B(const test& t) {
+    return t != 0; // Возвращаем результат сравнения с нулем
+}
+
+//Efimova
 
 void Test() {
   test t;
