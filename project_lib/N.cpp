@@ -10,7 +10,7 @@ uint8_t COM_NN_D(const N &n1, const N &n2) {
   return 0;
 }
 
-// Тут можно просто return vec == vec, но пусть будет так 
+// Тут можно просто return vec == vec, но пусть будет так  
 bool operator==(const N &n1, const N &n2) {   
   if (n1.digits.size() != n2.digits.size()) {
     return false;
