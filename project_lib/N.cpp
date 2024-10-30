@@ -10,7 +10,7 @@ uint8_t COM_NN_D(const N &n1, const N &n2) {
   return 0;
 }
 
-// í„‚ ¨Æ¶≠Æ Ø‡Æ·‚Æ return vec == vec, ≠Æ Ø„·‚Ï °„§•‚ ‚†™  
+// –¢—É—Ç –º–æ–∂–Ω–æ –±—ã–ª–æ –∏—Å–ø–æ–ª—å–∑–æ–≤–∞—Ç—å vec == vec, –Ω–æ –ø–æ—Ñ–∏–≥
 bool operator==(const N &n1, const N &n2) {   
   if (n1.digits.size() != n2.digits.size()) {
     return false;
