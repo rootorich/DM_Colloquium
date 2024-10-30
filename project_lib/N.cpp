@@ -1,6 +1,7 @@
 #include "N.h"
 
 uint8_t COM_NN_D(const N &n1, const N &n2) {
+  // Savranraskii Danila
   if (n1 < n2) {
     return 1; 
   }
@@ -10,18 +11,13 @@ uint8_t COM_NN_D(const N &n1, const N &n2) {
   return 0;
 }
 
-bool operator==(const N &n1, const N &n2) {   
-  if (n1.digits.size() != n2.digits.size()) {
-    return false;
-  }
-  for (size_t i = 0; i < n1.digits.size(); ++i) {
-    if (n1.digits[i] != n2.digits[i]) {
-      return false;
-    }
-  }
-  return true;
+bool operator==(const N &n1, const N &n2) {
+  // Savranraskii Danila 
+  return n1.digits == n2.digits;
 }
+
 bool operator<(const N &n1, const N &n2) { 
+  // Savranraskii Danila
   if (n1.digits.size() > n2.digits.size()) {
     return false;
   }
