@@ -1,24 +1,17 @@
-// includes
 #include <vector>
-#include <stdint.h>
-
-// for test. delete this
+#include <cstdint>
+#include <utility>
 #include <iostream>
 #ifndef DM_COLLOQUIUM_N_H
 #define DM_COLLOQUIUM_N_H
 
-struct test {
-  std::vector<uint8_t> test;
+struct N {
+    std::vector <uint8_t> digits;
 };
 
-test Test2(const test& t);
-
-bool operator==(const test& t, int zero);
-bool operator==(int zero, const test& t);
-bool operator!=(const test& t, int zero);
-bool operator!=(int zero, const test& t);
-bool NZER_N_B(const test& t);
-
-void Test();
+bool operator==(const N& num, int zero);
+bool operator==(int zero, const N& num);
+bool operator!=(const N& num, int zero);
+bool operator!=(int zero, const N& num);
 
 #endif
