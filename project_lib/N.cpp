@@ -12,6 +12,6 @@ void operator<<=(N& num, const uint8_t k) {
         num.digits.resize(num.digits.size()+k);
 }
 
-N MUL_Nk_N(N num, const uint8_t k) {
+N MUL_Nk_N(const N num, const uint8_t k) {
     return num<<k;
 }
