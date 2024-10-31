@@ -11,13 +11,25 @@ struct N {
 
 /*
  * Efimova
- * N-1
+ * N-2
 */
-bool operator==(const N& num, int digit);
-bool operator==(int digit, const N& num);
-bool operator!=(const N& num, int digit);
-bool operator!=(int digit, const N& num);
+bool operator==(const N& num, uint8_t digit);
+bool operator==(uint8_t digit, const N& num);
+bool operator!=(const N& num, uint8_t digit);
+bool operator!=(uint8_t digit, const N& num);
 bool NZER_N_B(const N& num);
+
+/*
+ *  N-6
+*/
+N operator*(const uint8_t digit, const N& num);
+N operator*(const N& num, const uint8_t digit);
+N MUL_ND_N(const N& num, const uint8_t digit);
+
+/*
+ * End Efimova
+*/
+
 
 /*
  * Savranraskii Danila
@@ -28,3 +40,7 @@ bool operator<(const N& n1, const N& n2);
 uint8_t COM_NN_D(const N& n1, const N& n2);
 
 #endif
+
+/*
+ * End Savranraskii Danila
+*/

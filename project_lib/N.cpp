@@ -4,25 +4,55 @@
  * Efimova
  * N-2
 */
-bool operator==(const N& num, int digit) {
+bool operator==(const N& num, uint8_t digit) {
   return num.digits.size() == 1 && num.digits[0] == digit;
 }
 
-bool operator==(int digit, const N& num) {
+bool operator==(uint8_t digit, const N& num) {
   return num == digit;
 }
 
-bool operator!=(const N& num, int digit) {
+bool operator!=(const N& num, uint8_t digit) {
   return !(num == digit);
 }
 
-bool operator!=(int digit, const N& num) {
+bool operator!=(uint8_t digit, const N& num) {
   return !(num == digit);
 }
 
 bool NZER_N_B(const N& num) {
   return num != 0;
 }
+
+/*
+ * N-6
+*/
+N operator*(const N& num, const uint8_t digit){
+  N result;
+  uint8_t carry = 0;
+  for (uint8_t numDigit : num.digits) {
+    uint8_t product = (numDigit * digit) + carry;
+    result.digits.emplace_back(product % 10);
+    carry = product / 10;
+  }
+
+  if (carry > 0) {
+    result.digits.emplace_back(carry);
+  }
+  return result;
+}
+
+N operator*(const uint8_t digit, const N& num){
+  return num * digit;
+}
+
+N MUL_ND_N(const N& num, const uint8_t digit){
+  return num * digit;
+}
+
+/*
+ * End Efimova
+*/
 
 
 /*
@@ -70,5 +100,9 @@ uint8_t COM_NN_D(const N &n1, const N &n2) {
   }
   return 0;
 }
+
+/*
+ * End Savranraskii Danila
+*/
 
 
