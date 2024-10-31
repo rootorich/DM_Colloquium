@@ -1,10 +1,6 @@
 // includes
 #include <vector>
-#include <stdint.h>
-
-// for test. delete this
-#include <iostream>
-
+#include <cstdint>
 #ifndef DM_COLLOQUIUM_N_H
 #define DM_COLLOQUIUM_N_H
 
@@ -12,8 +8,8 @@ struct test {
   std::vector<uint8_t> test;
 };
 
-test Test2(const test& t);
-
-void Test();
+N operator*(const uint8_t digit, const N& num);
+N operator*(const N& num, const uint8_t digit);
+N MUL_ND_N(const N& num, const uint8_t digit);
 
 #endif
