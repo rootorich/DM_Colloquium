@@ -39,8 +39,23 @@ bool operator==(const N& n1, const N& n2);
 bool operator<(const N& n1, const N& n2);
 uint8_t COM_NN_D(const N& n1, const N& n2);
 
-#endif
-
 /*
  * End Savranraskii Danila
 */
+
+
+
+/*
+ * Masha
+ * N-7
+*/
+N MUL_Nk_N(const N& num, const uint8_t k);
+N operator<<(N num, const uint8_t k);
+void operator<<=(N& num, const uint8_t k);
+
+/*
+ * End Masha
+*/
+
+#endif
+

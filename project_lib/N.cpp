@@ -106,3 +106,29 @@ uint8_t COM_NN_D(const N &n1, const N &n2) {
 */
 
 
+
+/*
+ * Masha
+ * N-7
+*/
+
+N operator<<(N num, const uint8_t k) {
+  if (num != 0) {
+    num.digits.resize(num.digits.size() + k);
+  }
+  return num;
+}
+
+void operator<<=(N& num, const uint8_t k) {
+  if (num != 0) {
+    num.digits.resize(num.digits.size() + k);
+  }
+}
+
+N MUL_Nk_N(const N& num, const uint8_t k) {
+  return num << k;
+}
+
+/*
+ * End Masha
+*/
