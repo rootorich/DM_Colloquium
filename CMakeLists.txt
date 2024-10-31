@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 23)
 file(GLOB SOURCES
         project_lib/*.h
         project_lib/*.cpp
+        tests/*.h
+        tests/*.cpp
         )
 
 
