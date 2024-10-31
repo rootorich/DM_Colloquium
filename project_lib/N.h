@@ -13,5 +13,7 @@ bool operator==(const N& num, int zero);
 bool operator==(int zero, const N& num);
 bool operator!=(const N& num, int zero);
 bool operator!=(int zero, const N& num);
+bool NZER_N_B(const N& num);
+
 
 #endif
