@@ -8,7 +8,7 @@ struct N {
   std::vector<uint8_t> digits;
 };
 
-uint8_t MUL_Nk_N(const N &n1, const N &n2);
+uint8_t MUL_Nk_N(const N num, const uint8_t k);
 N operator<<(N num, const uint8_t k);
 void operator<<=(N& num, const uint8_t k);
 
