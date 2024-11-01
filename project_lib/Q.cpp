@@ -6,8 +6,8 @@ Q RED_Q_Q(const Q& ratio){
 
     N gcd = GCF_NN_N(ratio.z, ratio.n);
 
-    q.z = (q.z/gcd);
-    q.n = (q.n/gcd);
+    q.z = (ratio.z/gcd);
+    q.n = (ratio.n/gcd);
 
     return q;
 
