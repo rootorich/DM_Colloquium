@@ -5,9 +5,9 @@
 #ifndef DM_COLLOQUIUM_N_H
 #define DM_COLLOQUIUM_N_H
 
-struct N {
+typedef struct N {
   std::vector <uint8_t> digits;
-};
+} N;
 
 /*
  * Efimova
@@ -20,7 +20,7 @@ bool operator!=(uint8_t digit, const N& num);
 bool NZER_N_B(const N& num);
 
 /*
- *  N-6
+ * N-6
 */
 N operator*(const uint8_t digit, const N& num);
 N operator*(const N& num, const uint8_t digit);
@@ -47,15 +47,27 @@ uint8_t COM_NN_D(const N& n1, const N& n2);
 
 /*
  * Masha
+ * N-4
+*/
+const N operator+(const N n1, const N n2);
+void operator+=(N& n1, const N n2);
+const N ADD_NN_N(const N n1, const N n2);
+
+/*
+ * N-3
+*/
+const N operator++(N& num, int);
+const N ADD_1N_N(N num);
+
+/*
  * N-7
 */
-N MUL_Nk_N(const N& num, const uint8_t k);
 N operator<<(N num, const uint8_t k);
 void operator<<=(N& num, const uint8_t k);
+N MUL_Nk_N(const N num, const uint8_t k);
 
 /*
  * End Masha
 */
 
 #endif
-
