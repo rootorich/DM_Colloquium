@@ -27,6 +27,14 @@ N operator*(const N& num, const uint8_t digit);
 N MUL_ND_N(const N& num, const uint8_t digit);
 
 /*
+ * N-14
+*/
+
+N operator%(const N& num1, const N& num2);
+N operator/(const N& num1, const N& num2);
+N LCM_NN_N(const N& num1, const N& num2);
+
+/*
  * End Efimova
 */
 

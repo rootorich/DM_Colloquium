@@ -51,6 +51,42 @@ N MUL_ND_N(const N& num, const uint8_t digit){
 }
 
 /*
+ * N-14
+*/
+
+N operator/(const N& num1, const N& num2) {
+
+    if (num2 == 0) {
+        throw std::invalid_argument("Division by zero");
+    }
+
+    N n1 = num1;
+    N res;
+
+    if (n1.digits < num2.digits) res.digits.push_back(0);
+    
+    while(n1.digits >= num2.digits){
+        uint8_t tmp = DIV_NN_Dk(n1, num2);
+        res.digits.push_back(tmp);
+        N product = num2*tmp;
+        uint8_t t = n1.digits.size() - product.digits.size();
+        n1 = n1 - (product << t);
+    }
+
+    return res;
+
+}
+
+N operator%(const N& num1, const N& num2) {
+    return num1 - (num1/num2);
+}
+
+N LCM_NN_N(const N& num1, const N& num2){
+  return MUL_NN_N(num1, num2)/GCF_NN_N(num1, num2);
+}
+
+
+/*
  * End Efimova
 */
 
