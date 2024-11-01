@@ -66,9 +66,9 @@ N operator/(const N& num1, const N& num2) {
     N n1 = num1;
     N res;
 
-    if (n1.digits < num2.digits) res.digits.push_back(0);
+    if (n1 < num2) res.digits.push_back(0);
     
-    while(n1.digits >= num2.digits){
+    while(n1 >= num2){
         N tmp = DIV_NN_Dk(n1, num2);
         res.digits.push_back(tmp.digits[0]);
         n1 = n1 - (num2*tmp);
