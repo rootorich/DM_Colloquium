@@ -125,7 +125,7 @@ const N operator+(const N n1, const N n2) {
     while (i < min.digits.size()) {
         result.digits[i] = (n1.digits[i] + n2.digits[i] + carry)%10; 
         carry = (n1.digits[i] + n2.digits[i] + carry)/10;
-        i++;
+        ++i;
     } 
     if (i == result.digits.size() && carry)
         result.digits.emplace_back(0);
@@ -145,17 +145,14 @@ const N ADD_NN_N(const N n1, const N n2) {
 /*
  * N-3
 */
-const N operator++(N& num, int) {
-    N old_num;
-    old_num.digits = num.digits;
+const N& operator++(N& num) {
     N num_one{std::vector<uint8_t>{1}};
     num += num_one; 
-    return old_num;
+    return num;
 }
 
-const N ADD_1N_N (N num) {
-    num++;
-    return num;
+const N ADD_1N_N(N num) {
+    return ++num;
 }
 
 

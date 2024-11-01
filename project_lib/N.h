@@ -56,7 +56,7 @@ const N ADD_NN_N(const N n1, const N n2);
 /*
  * N-3
 */
-const N operator++(N& num, int);
+const N& operator++(N& num);
 const N ADD_1N_N(N num);
 
 /*
