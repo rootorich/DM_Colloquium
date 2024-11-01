@@ -17,13 +17,13 @@ Z TRANS_N_Z(const N& n){
 
 //Efimova Z-8
 Z MUL_ZZ_Z(const Z& z1, const Z& z2){
-    
-    N n1{z1.digits};
-    N n2{z2.digits};
+
     Z result;
-    result = n1*n2;
+    result = z1*z2;
     result.sign = (z1.sign == z2.sign) ? 0 : 1;
     return result;
+
 }
+
 
 
