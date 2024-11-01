@@ -1,13 +1,14 @@
 #include <vector>
 #include <cstdint>
 #include <utility>
+#include <stdexcept>
 
 #ifndef DM_COLLOQUIUM_N_H
 #define DM_COLLOQUIUM_N_H
 
-struct N {
+typedef struct N {
   std::vector <uint8_t> digits;
-};
+} N;
 
 /*
  * Efimova
@@ -20,18 +21,11 @@ bool operator!=(uint8_t digit, const N& num);
 bool NZER_N_B(const N& num);
 
 /*
- *  N-6
+ * N-6
 */
 N operator*(const uint8_t digit, const N& num);
 N operator*(const N& num, const uint8_t digit);
 N MUL_ND_N(const N& num, const uint8_t digit);
-
-/*
- * N-14
-*/
-N operator%(const N& num1, const N& num2);
-N operator/(const N& num1, const N& num2);
-N LCM_NN_N(const N& num1, const N& num2);
 
 /*
  * End Efimova
@@ -47,46 +41,46 @@ bool operator<(const N& n1, const N& n2);
 uint8_t COM_NN_D(const N& n1, const N& n2);
 
 /*
- * N-5
-*/
-N operator-(const N& n1, const N& n2);
-N SUB_NN_N(const N& n1, const N& n2);
-
-/*
- * N-10
-*/
-N DIV_NN_Dk(const N& n1, const N& n2);
-
-
-/*
  * End Savranraskii Danila
 */
+
 
 
 /*
  * Masha
  * N-4
 */
-N operator+(const N& n1, N n2);
+const N operator+(const N& n1, const N& n2);
 N& operator+=(N& n1, const N& n2);
-N ADD_NN_N(const N& n1, const N& n2);
+const N ADD_NN_N(const N& n1, const N& n2);
 
 /*
  * N-3
 */
 const N& operator++(N& num);
-const N ADD_1N_N(N num);
+const N& ADD_1N_N(N& num);
 
 /*
  * N-7
 */
-N MUL_Nk_N(const N& num, const uint8_t k);
-N operator<<(N num, const uint8_t k);
-void operator<<=(N& num, const uint8_t k);
+const N operator<<(const N& num, const uint8_t k);
+N& operator<<=(N& num, const uint8_t k);
+const N MUL_Nk_N(const N& num, const uint8_t k);
+
+/*
+ *N-8
+*/
+const N operator*(const N& n1, const N& n2);
+N& operator*=(N& n1, const N& n2);
+const N MUL_NN_N(const N& n1, const N& n2);
+
+/*
+ * N-9
+*/
+const N SUB_NDN_N(const N& n1, const uint8_t d, const N& n2);
 
 /*
  * End Masha
 */
 
 #endif
-
