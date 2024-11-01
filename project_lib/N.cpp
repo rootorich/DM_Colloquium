@@ -102,6 +102,42 @@ uint8_t COM_NN_D(const N &n1, const N &n2) {
 }
 
 /*
+* N-5
+*/
+
+N operator-(const N& n1, const N& n2) {
+  if (n1 < n2) {
+    return N{{0}};
+  }
+  
+  N result;
+  result.digits = n1.digits;
+  int carry = 0;
+  for (size_t i = 0; i < n2.digits.size(); ++i) {
+    if (n1.digits[i] + carry < n2.digits[i]) {
+      result.digits[i] = 10 + n1.digits[i] + carry - n2.digits[i];
+      carry = -1;
+    }
+    else {
+      result.digits[i] = n1.digits[i] + carry - n2.digits[i];
+      carry = 0;
+    }
+  }
+
+  while (result.digits.size() > 1 && result.digits.back() == 0) {
+    result.digits.pop_back();
+  }
+  return result;
+}
+
+N SUB_NN_N(const N& n1, const N& n2) {
+  if (n1 < n2) {
+    return n2 - n1;
+  }
+  return n1 - n2;
+}
+
+/*
  * End Savranraskii Danila
 */
 

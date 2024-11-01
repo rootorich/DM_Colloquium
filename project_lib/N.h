@@ -40,6 +40,13 @@ bool operator<(const N& n1, const N& n2);
 uint8_t COM_NN_D(const N& n1, const N& n2);
 
 /*
+ * N-5
+*/
+
+N operator-(const N& n1, const N& n2);
+N SUB_NN_N(const N& n1, const N& n2);
+
+/*
  * End Savranraskii Danila
 */
 
