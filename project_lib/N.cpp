@@ -1,5 +1,7 @@
 #include "N.h"
 
+using namespace std::rel_ops;
+
 /*
  * Efimova
  * N-2
@@ -113,15 +115,29 @@ N operator-(const N& n1, const N& n2) {
   N result;
   result.digits = n1.digits;
   int carry = 0;
-  for (size_t i = 0; i < n2.digits.size(); ++i) {
-    if (n1.digits[i] + carry < n2.digits[i]) {
-      result.digits[i] = 10 + n1.digits[i] + carry - n2.digits[i];
-      carry = -1;
+  size_t i = 0;
+
+  for (i = 0; i < n2.digits.size(); ++i) {
+    if (n1.digits[i] - carry < n2.digits[i]) {
+      result.digits[i] = 10 + n1.digits[i] - carry - n2.digits[i];
+      carry = 1;
     }
     else {
-      result.digits[i] = n1.digits[i] + carry - n2.digits[i];
+      result.digits[i] = n1.digits[i] - carry - n2.digits[i];
       carry = 0;
     }
+  }
+  
+  while (carry && i < n1.digits.size()) {
+    if (n1.digits[i] == 0) {
+      result.digits[i] = 10 + n1.digits[i] - carry;
+      carry = 1;
+    }
+    else {
+      result.digits[i] = n1.digits[i] - carry;
+      carry = 0;
+    }
+    ++i;
   }
 
   while (result.digits.size() > 1 && result.digits.back() == 0) {
@@ -135,6 +151,39 @@ N SUB_NN_N(const N& n1, const N& n2) {
     return n2 - n1;
   }
   return n1 - n2;
+}
+
+/*
+ * N-10
+*/
+
+// Не тестил пока сложения нет
+N DIV_NN_Dk(const N& n1, const N& n2) {
+  N a, b;
+  if (n2 < n1) {
+    a.digits = n1.digits;
+    b.digits = n2.digits;
+  }
+  else {
+    a.digits = n2.digits;
+    b.digits = n1.digits;
+  }
+  int k = a.digits.size() - b.digits.size();
+  uint8_t D;
+  if (a.digits.back() > b.digits.back()) {
+    D = a.digits.back() / b.digits.back();
+    return N{{D}} << k;
+  }
+  k -= 1;
+  b = b << k;
+  N sum;
+  sum.digits = b.digits;
+  uint8_t i = 0;
+  while (a > sum) {
+    sum = sum + b;
+    ++i;
+  }
+  return N{{i}} << k;
 }
 
 /*

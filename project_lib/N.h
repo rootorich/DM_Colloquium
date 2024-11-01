@@ -47,6 +47,12 @@ N operator-(const N& n1, const N& n2);
 N SUB_NN_N(const N& n1, const N& n2);
 
 /*
+ * N-10
+*/
+
+N DIV_NN_Dk(const N& n1, const N& n2);
+
+/*
  * End Savranraskii Danila
 */
 
