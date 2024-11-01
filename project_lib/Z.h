@@ -1,7 +1,3 @@
-#include <vector>
-#include <cstdint>
-#include <utility>
-
 #ifndef DM_COLLOQUIUM_Z_H
 #define DM_COLLOQUIUM_Z_H
 
@@ -16,5 +12,6 @@ struct Z : N {
 Z& Z:: operator=(const N& n);
 Z TRANS_N_Z(const N& n);
 
+#endif;
 
 
