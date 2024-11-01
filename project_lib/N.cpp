@@ -88,6 +88,14 @@ N LCM_NN_N(const N& num1, const N& num2){
 }
 
 /*
+ * N-11
+*/
+
+N DIV_NN_N(const N& num1, const N& num2){
+    return num1/num2;
+}
+
+/*
  * End Efimova
 */
 
