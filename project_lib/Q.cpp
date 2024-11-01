@@ -1,5 +1,5 @@
 #include "Q.h"
-
+//Efimova
 Q RED_Q_Q(const Q& ratio){
 
     Q q;
@@ -12,3 +12,11 @@ Q RED_Q_Q(const Q& ratio){
     return q;
 
 }
+
+bool INT_Q_B(const Q& ratio){
+
+    if(ratio.n == 1) return true;
+    return false;
+
+}
+//Efimova
