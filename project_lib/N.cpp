@@ -105,36 +105,37 @@ uint8_t COM_NN_D(const N &n1, const N &n2) {
  * End Savranraskii Danila
 */
 
-
-
 /*
  * Masha
  * N-4
 */
-const N operator+(const N n1, const N n2) {
-    N result, min;
-    if (COM_NN_D(n1, n2) == 2) {
-        result = n1;
-        min = n2;
-    } else {
+const N operator+(const N n1, N n2) {
+    N result = n1;
+    if (COM_NN_D(n1, n2) == 1) {
         result = n2;
-        min = n1;
+        n2 = n1;
     }
     uint8_t carry = 0;
     size_t i = 0;
-    while (i < min.digits.size()) {
-        result.digits[i] = (n1.digits[i] + n2.digits[i] + carry)%10; 
-        carry = (n1.digits[i] + n2.digits[i] + carry)/10;
+    while (i < n2.digits.size() || carry) {
+        if (i == result.digits.size()) {
+            result.digits.emplace_back(carry);
+            break;
+        }
+        uint8_t digit = result.digits[i] + carry;
+        if (i < n2.digits.size()) {
+            digit += n2.digits[i];
+        }
+        result.digits[i] = digit%10; 
+        carry = digit/10;
         ++i;
-    } 
-    if (i == result.digits.size() && carry)
-        result.digits.emplace_back(0);
-    result.digits[i] += carry;
+    }
     return result;
 }
 
-void operator+=(N& n1, const N n2) {
+N& operator+=(N& n1, const N& n2) {
     n1 = n1 + n2;
+    return n1;
 }
 
 const N ADD_NN_N(const N n1, const N n2) {
@@ -167,8 +168,10 @@ N operator<<(N num, const uint8_t k) {
   return num;
 }
 
-void operator<<=(N& num, const uint8_t k) {
+
+N& operator<<=(N& num, const uint8_t k) {
   num = num << k;
+  return num;
 }
 
 N MUL_Nk_N(const N num, const uint8_t k) {

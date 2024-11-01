@@ -50,8 +50,8 @@ uint8_t COM_NN_D(const N& n1, const N& n2);
  * N-4
 */
 const N operator+(const N n1, const N n2);
-void operator+=(N& n1, const N n2);
-const N ADD_NN_N(const N n1, const N n2);
+N& operator+=(N& n1, const N& n2);
+const N ADD_NN_N(const N n1, N n2);
 
 /*
  * N-3
@@ -63,7 +63,7 @@ const N ADD_1N_N(N num);
  * N-7
 */
 N operator<<(N num, const uint8_t k);
-void operator<<=(N& num, const uint8_t k);
+N& operator<<=(N& num, const uint8_t k);
 N MUL_Nk_N(const N num, const uint8_t k);
 
 /*
