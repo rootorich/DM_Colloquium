@@ -7,6 +7,8 @@
 
 struct N {
   std::vector <uint8_t> digits;
+
+  N& operator*=(const N& n);
 };
 
 /*
@@ -83,6 +85,18 @@ const N ADD_1N_N(N num);
 N MUL_Nk_N(const N& num, const uint8_t k);
 N operator<<(N num, const uint8_t k);
 void operator<<=(N& num, const uint8_t k);
+
+/*
+ *N-8
+*/
+N operator*(const N& n1, const N& n2);
+N MUL_NN_N(const N& n1, const N& n2);
+
+/*
+ * N-9
+*/
+N SUB_NDN_N(const N& n1, const uint8_t d, const N& n2);
+
 
 /*
  * End Masha

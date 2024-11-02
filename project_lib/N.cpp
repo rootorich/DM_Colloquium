@@ -300,5 +300,40 @@ N MUL_Nk_N(const N& num, const uint8_t k) {
 }
 
 /*
+ * N-8
+*/
+N operator*(const N& n1, const N& n2) {
+  if (n2 == 0 || n1 == 0)
+    return (n2 == 0) ? n2 : n1;
+  N result;
+  result.digits.emplace_back(0);
+  for (size_t i = 0; i < n2.digits.size(); ++i) {
+    result += (n1 * n2.digits[i]) << i; // скобки для более явного обозначения приоритета (хоть и * имеет выше приоритет, чем <<)
+  }
+  return result;
+}
+
+N& N::operator*=(const N& n) {
+  *this = *this * n;
+  return *this;
+}
+
+N MUL_NN_N(const N& n1, const N& n2) {
+  return n1 * n2;
+}
+
+/*
+ * N-9
+*/
+N SUB_NDN_N(const N& n1, const uint8_t d, const N& n2) {
+  N n3 = d * n2;
+//  if (n1 < n3)
+//    throw std::invalid_argument("Subtrahend is bigger than number.");
+  return n1 - n3;
+}
+
+
+/*
  * End Masha
 */
+
