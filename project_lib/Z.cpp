@@ -129,8 +129,10 @@ Z TRANS_N_Z(const N& n) {
  * Z-8
 */
 Z operator*(const Z& z1, const Z& z2) {
+  N n1 = z1;
+  N n2 = z2;
   Z result;
-  result = z1*z2;
+  result = n1 * n2;
   result.sign = z1.sign != z2.sign;
 
   return result;
