@@ -70,6 +70,6 @@ void ALL_TEST_N() {
   } else {
     std::cout << "N == DIGIT does't work";
   }
-
+  std::cout << "\n";
   // ...
 }
