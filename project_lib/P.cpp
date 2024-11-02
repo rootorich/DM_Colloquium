@@ -31,8 +31,7 @@ P operator+(const P& p1, const P& p2){
 
 P operator-(const P& p1, const P& p2){
     
-    P result = -p2;
-    return result+p1;
+    return p1+(-p2);
 
 }
 
