@@ -35,9 +35,14 @@ N operator/(const N& num1, const N& num2);
 N DIV_NN_N(const N& num1, const N& num2);
 
 /*
- * N-14
+ * N-12
 */
 N operator%(const N& num1, const N& num2);
+N MOD_NN_N(const N& num1, const N& num2);
+
+/*
+ * N-14
+*/
 N LCM_NN_N(const N& num1, const N& num2);
 
 /*
@@ -69,21 +74,20 @@ N DIV_NN_Dk(const N& n1, const N& n2);
  * End Savranraskii Danila
 */
 
-
 /*
  * Masha
- * N-4
-*/
-N operator+(const N& n1, const N& n2);
-N& operator+=(N& n1, const N& n2);
-N ADD_NN_N(const N& n1, const N& n2);
-
-/*
  * N-3
 */
 void operator++(N& num);
 N operator+(const N& n1, const uint8_t);
 const N ADD_1N_N(N num);
+
+/*
+ * N-4
+*/
+N operator+(const N& n1, const N& n2);
+N& operator+=(N& n1, const N& n2);
+N ADD_NN_N(const N& n1, const N& n2);
 
 /*
  * N-7
@@ -102,7 +106,6 @@ N MUL_NN_N(const N& n1, const N& n2);
  * N-9
 */
 N SUB_NDN_N(const N& n1, const uint8_t d, const N& n2);
-
 
 /*
  * End Masha

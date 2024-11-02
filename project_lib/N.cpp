@@ -82,9 +82,8 @@ N DIV_NN_N(const N& num1, const N& num2){
 }
 
 /*
- * N-14
+ * N-12
 */
-
 N operator%(const N& num1, const N& num2) {
   N res = num1 - (num1 / num2);
 
@@ -92,6 +91,14 @@ N operator%(const N& num1, const N& num2) {
 
   return res;
 }
+
+N MOD_NN_N(const N& num1, const N& num2){
+  return num1 % num2;
+}
+
+/*
+ * N-14
+*/
 
 N LCM_NN_N(const N& num1, const N& num2){
   return MUL_NN_N(num1, num2) / GCF_NN_N(num1, num2);
@@ -226,9 +233,25 @@ N DIV_NN_Dk(const N& n1, const N& n2) {
 */
 
 
-
 /*
  * Masha
+ * N-3
+*/
+void operator++(N& num) {
+  N num_one{std::vector<uint8_t>{1}};
+  num += num_one;
+}
+
+N operator+(const N& n1, const uint8_t digit) {
+  N n2 {std::vector<uint8_t>{digit}};
+  return n1 + n2;
+}
+
+N ADD_1N_N(const N& num) {
+  return num + 1;
+}
+
+/*
  * N-4
 */
 N operator+(const N& n1, const N& n2) {
@@ -267,24 +290,6 @@ N& operator+=(N& n1, const N& n2) {
 
 N ADD_NN_N(const N& n1, const N& n2) {
   return n1 + n2;
-}
-
-
-/*
- * N-3
-*/
-void operator++(N& num) {
-  N num_one{std::vector<uint8_t>{1}};
-  num += num_one;
-}
-
-N operator+(const N& n1, const uint8_t digit) {
-  N n2 {std::vector<uint8_t>{digit}};
-  return n1 + n2;
-}
-
-N ADD_1N_N(const N& num) {
-  return num + 1;
 }
 
 /*
