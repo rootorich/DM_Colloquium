@@ -85,7 +85,7 @@ N DIV_NN_N(const N& num1, const N& num2){
  * N-12
 */
 N operator%(const N& num1, const N& num2) {
-  N res = num1 - (num1 * (num1 / num2));
+  N res = num1 - (num2 * (num1 / num2));
 
   CLR_V_V(res);
 
