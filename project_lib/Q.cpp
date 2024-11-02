@@ -45,4 +45,31 @@ Z TRANS_Q_Z(const Q& ratio){
     return z;
     
 }
+
+
+
+ Q& operator+(const Q& q1, const Q& q2){
+
+    Q q;
+
+    Q q3;
+    Q q4;
+
+    q.n = LCM_NN_N(q1.n, q2.n);
+
+    q3.z = (q1.z*(q.n/q1.n));
+    q4.z = (q2.z*(q.n/q2.n));
+
+    q.z = q3.z + q4.z;
+
+    return RED_Q_Q(q);
+
+
+}
+
+Q ADD_QQ_Q(const Q& q1, const Q& q2){
+
+    return q1+q2;
+}
+
 //Efimova
