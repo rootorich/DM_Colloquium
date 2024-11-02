@@ -55,14 +55,6 @@ N MUL_ND_N(const N& num, const uint8_t digit){
 /*
  * N-11
 */
-
-N DIV_NN_N(const N& num1, const N& num2){
-  return num1 / num2;
-}
-
-/*
- * N-14
-*/
 N operator/(const N& num1, const N& num2) {
 
 //  if (num2 == 0) {
@@ -80,11 +72,25 @@ N operator/(const N& num1, const N& num2) {
     n1 = n1 - (num2*tmp);
   }
 
+  CLR_V_V(res);
+
   return res;
 }
 
+N DIV_NN_N(const N& num1, const N& num2){
+  return num1 / num2;
+}
+
+/*
+ * N-14
+*/
+
 N operator%(const N& num1, const N& num2) {
-  return num1 - (num1/num2);
+  N res = num1 - (num1 / num2);
+
+  CLR_V_V(res);
+
+  return res;
 }
 
 N LCM_NN_N(const N& num1, const N& num2){
@@ -147,21 +153,16 @@ uint8_t COM_NN_D(const N &n1, const N &n2) {
 */
 
 N operator-(const N& n1, const N& n2) {
-  if (n1 < n2) {
-    return N{{0}};
-  }
-
   N result;
   result.digits = n1.digits;
   int carry = 0;
-  size_t i = 0;
+  size_t i;
 
   for (i = 0; i < n2.digits.size(); ++i) {
     if (n1.digits[i] - carry < n2.digits[i]) {
       result.digits[i] = 10 + n1.digits[i] - carry - n2.digits[i];
       carry = 1;
-    }
-    else {
+    } else {
       result.digits[i] = n1.digits[i] - carry - n2.digits[i];
       carry = 0;
     }
@@ -179,16 +180,12 @@ N operator-(const N& n1, const N& n2) {
     ++i;
   }
 
-  while (result.digits.size() > 1 && result.digits.back() == 0) {
-    result.digits.pop_back();
-  }
+  CLR_V_V(result); // очистка незначащих нулей
+
   return result;
 }
 
 N SUB_NN_N(const N& n1, const N& n2) {
-  if (n1 < n2) {
-    return n2 - n1;
-  }
   return n1 - n2;
 }
 
@@ -198,30 +195,29 @@ N SUB_NN_N(const N& n1, const N& n2) {
 
 // Не тестил пока сложения нет
 N DIV_NN_Dk(const N& n1, const N& n2) {
-  N a, b;
-  if (n2 < n1) {
-    a.digits = n1.digits;
-    b.digits = n2.digits;
-  }
-  else {
-    a.digits = n2.digits;
-    b.digits = n1.digits;
-  }
-  int k = a.digits.size() - b.digits.size();
+  N res = n2;
+
+  // Нужно пофиксить !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  size_t k = n1.digits.size() - res.digits.size();
   uint8_t D;
-  if (a.digits.back() > b.digits.back()) {
-    D = a.digits.back() / b.digits.back();
+
+  if (n1.digits.back() > res.digits.back()) {
+    D = n1.digits.back() / res.digits.back();
     return N{{D}} << k;
   }
+
   k -= 1;
-  b = b << k;
+  res = res << k;
   N sum;
-  sum.digits = b.digits;
+  sum.digits = res.digits;
   uint8_t i = 0;
-  while (a > sum) {
-    sum = sum + b;
+
+  while (n1 > sum) {
+    sum = sum + res;
     ++i;
   }
+
   return N{{i}} << k;
 }
 
@@ -235,27 +231,32 @@ N DIV_NN_Dk(const N& n1, const N& n2) {
  * Masha
  * N-4
 */
-N operator+(const N& n1, N n2) {
+N operator+(const N& n1, const N& n2) {
   N result = n1;
-  if (COM_NN_D(n1, n2) == 1) {
+  N min = n2;
+  if (n1 < n2) {
     result = n2;
-    n2 = n1;
+    min = n1;
   }
   uint8_t carry = 0;
   size_t i = 0;
-  while (i < n2.digits.size() || carry) {
+  while (i < min.digits.size() || carry) {
     if (i == result.digits.size()) {
       result.digits.emplace_back(carry);
       break;
     }
+
     uint8_t digit = result.digits[i] + carry;
-    if (i < n2.digits.size()) {
-      digit += n2.digits[i];
+
+    if (i < min.digits.size()) {
+      digit += min.digits[i];
     }
+
     result.digits[i] = digit%10;
     carry = digit/10;
     ++i;
   }
+
   return result;
 }
 
@@ -272,31 +273,35 @@ N ADD_NN_N(const N& n1, const N& n2) {
 /*
  * N-3
 */
-const N& operator++(N& num) {
+void operator++(N& num) {
   N num_one{std::vector<uint8_t>{1}};
   num += num_one;
-  return num;
 }
 
-const N ADD_1N_N(N num) {
-  return ++num;
+N operator+(const N& n1, const uint8_t digit) {
+  N n2 {std::vector<uint8_t>{digit}};
+  return n1 + n2;
+}
+
+N ADD_1N_N(const N& num) {
+  return num + 1;
 }
 
 /*
  * N-7
 */
 
-N operator<<(N num, const uint8_t k) {
+N operator<<(const N& num, const uint8_t k) {
+  N result = num;
   if (num != 0) {
-    num.digits.resize(num.digits.size() + k);
+    std::vector<uint8_t> zeros(k, 0);
+    result.digits.insert(result.digits.begin(), zeros.begin(), zeros.end());
   }
-  return num;
+  return result;
 }
 
 void operator<<=(N& num, const uint8_t k) {
-  if (num != 0) {
-    num.digits.resize(num.digits.size() + k);
-  }
+  num = num << k;
 }
 
 N MUL_Nk_N(const N& num, const uint8_t k) {
@@ -307,13 +312,17 @@ N MUL_Nk_N(const N& num, const uint8_t k) {
  * N-8
 */
 N operator*(const N& n1, const N& n2) {
-  if (n2 == 0 || n1 == 0)
+  if (n2 == 0 || n1 == 0) {
     return (n2 == 0) ? n2 : n1;
+  }
+
   N result;
   result.digits.emplace_back(0);
+
   for (size_t i = 0; i < n2.digits.size(); ++i) {
     result += (n1 * n2.digits[i]) << i; // скобки для более явного обозначения приоритета (хоть и * имеет выше приоритет, чем <<)
   }
+
   return result;
 }
 
@@ -346,14 +355,18 @@ N SUB_NDN_N(const N& n1, const uint8_t d, const N& n2) {
  * Kate
  * N-13
 */
-N GCF_NN_N(N& n1, N& n2) {
-  while (n2 != 0) {
-    if (n1 < n2) {
-      std::swap(n1, n2);
+N GCF_NN_N(const N& n1, const N& n2) {
+  N t1 = n1;
+  N t2 = n2;
+
+  while (t2 != 0) {
+    if (t1 < t2) {
+      std::swap(t1, t2);
     }
-    n1 = n1 % n2;
+    t1 = t1 % t2;
   }
-  return n1;
+
+  return t1;
 }
 
 void CLR_V_V(N& num) {

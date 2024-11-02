@@ -31,13 +31,13 @@ N MUL_ND_N(const N& num, const uint8_t digit);
 /*
  * N-11
 */
+N operator/(const N& num1, const N& num2);
 N DIV_NN_N(const N& num1, const N& num2);
 
 /*
  * N-14
 */
 N operator%(const N& num1, const N& num2);
-N operator/(const N& num1, const N& num2);
 N LCM_NN_N(const N& num1, const N& num2);
 
 /*
@@ -74,21 +74,22 @@ N DIV_NN_Dk(const N& n1, const N& n2);
  * Masha
  * N-4
 */
-N operator+(const N& n1, N n2);
+N operator+(const N& n1, const N& n2);
 N& operator+=(N& n1, const N& n2);
 N ADD_NN_N(const N& n1, const N& n2);
 
 /*
  * N-3
 */
-const N& operator++(N& num);
+void operator++(N& num);
+N operator+(const N& n1, const uint8_t);
 const N ADD_1N_N(N num);
 
 /*
  * N-7
 */
 N MUL_Nk_N(const N& num, const uint8_t k);
-N operator<<(N num, const uint8_t k);
+N operator<<(const N& num, const uint8_t k);
 void operator<<=(N& num, const uint8_t k);
 
 /*
@@ -112,7 +113,7 @@ N SUB_NDN_N(const N& n1, const uint8_t d, const N& n2);
  * Kate
  * N-13
 */
-N GCF_NN_N(N& n1, N& n2);
+N GCF_NN_N(const N& n1, const N& n2);
 void CLR_V_V(N& num);
 /*
  * End Kate
