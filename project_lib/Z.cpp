@@ -1,5 +1,7 @@
 #include "Z.h"
 
+using namespace std::rel_ops;
+
 /*
  * Kate
  * Z-1
@@ -66,8 +68,13 @@ Z operator+(const Z& z1, const Z& z2) {
     result.digits = (n1 + n2).digits;
     result.sign = z1.sign;
   } else {
-    result.digits = SUB_NN_N(n1, n2).digits;
-    result.sign = (n1 < n2) ? z2.sign : z1.sign;
+    if (n1 > n2) {
+      result.digits = (n1 - n2).digits;
+      result.sign = z1.sign;
+    } else {
+      result.digits = (n2 - n1).digits;
+      result.sign = z2.sign;
+    }
   }
   return result;
 }
