@@ -6,7 +6,8 @@
 struct Z : N {
   bool sign;
 
-  Z operator-() const;
+
+  Z& operator=(const N& n);
 };
 
 /*
@@ -18,6 +19,7 @@ Z ABS_Z_Z(const Z& z);
 /*
  * Z-3
 */
+Z operator-(const Z& z);
 Z MUL_ZM_Z(const Z& z);
 
 /*
@@ -40,5 +42,19 @@ uint8_t POZ_Z_D(const Z& num);
  * End Masha
 */
 
+/*
+ * Efimova
+ * Z-4
+*/
+Z TRANS_N_Z(const N& n);
+
+/*
+ * Z-8
+*/
+Z MUL_ZZ_Z(const Z& z1, const Z& z2);
+
+/*
+ * End Efimova
+*/
 
 #endif

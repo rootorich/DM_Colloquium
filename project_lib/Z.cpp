@@ -15,10 +15,11 @@ Z ABS_Z_Z(const Z& z) {
 /*
  * Z-3
 */
-Z Z::operator-() const {
+Z operator-(const Z& z) {
   Z result;
-  result.digits = digits;
-  result.sign = !sign;
+  result.digits = z.digits;
+  result.sign = !z.sign;
+
   return result;
 }
 
@@ -55,4 +56,36 @@ uint8_t POZ_Z_D(const Z& num) {
 
 /*
  * End Masha
+*/
+
+
+/*
+ * Efimova
+ * Z-4
+*/
+Z& Z:: operator=(const N& rhs) {
+  digits = rhs.digits;
+  sign = 0;
+  return *this;
+}
+
+Z TRANS_N_Z(const N& n) {
+  Z z;
+  z = n;
+  return z;
+}
+
+/*
+ * Z-8
+*/
+Z MUL_ZZ_Z(const Z& z1, const Z& z2) {
+  Z result;
+  result = z1*z2;
+  result.sign = z1.sign != z2.sign;
+
+  return result;
+}
+
+/*
+ * End Efimova
 */
