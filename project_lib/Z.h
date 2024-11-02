@@ -32,6 +32,19 @@ N TRANS_Z_N(const Z& z);
  * End Kate
 */
 
+/*
+ * Savranraskii Danila
+ * Z-7
+*/
+
+Z operator-(const Z& z1, const Z& z2);
+void operator-=(Z& z1, const Z& z2);
+Z SUB_ZZ_Z(Z const &z1, Z const &z2);
+
+/*
+ * End Savranraskii Danila
+*/
+
 
 /*
  * Masha

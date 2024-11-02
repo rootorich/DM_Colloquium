@@ -200,7 +200,6 @@ N SUB_NN_N(const N& n1, const N& n2) {
  * N-10
 */
 
-// Не тестил пока сложения нет
 N DIV_NN_Dk(const N& n1, const N& n2) {
   N res = n2;
 
