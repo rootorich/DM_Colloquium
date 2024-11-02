@@ -8,6 +8,7 @@
 struct N {
   std::vector <uint8_t> digits;
 
+  N& operator+=(const N& n);
   N& operator*=(const N& n);
 };
 
@@ -86,7 +87,6 @@ const N ADD_1N_N(N num);
  * N-4
 */
 N operator+(const N& n1, const N& n2);
-N& operator+=(N& n1, const N& n2);
 N ADD_NN_N(const N& n1, const N& n2);
 
 /*

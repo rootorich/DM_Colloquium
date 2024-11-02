@@ -6,8 +6,9 @@
 struct Z : N {
   bool sign;
 
-
   Z& operator=(const N& n);
+  Z& operator+=(const Z& z);
+  Z& operator%=(const Z& z2);
 };
 
 /*
@@ -37,6 +38,18 @@ N TRANS_Z_N(const Z& z);
  * Z-2
 */
 uint8_t POZ_Z_D(const Z& num);
+
+/*
+ * Z-6
+*/
+Z operator+(const Z& z1, const Z& z2);
+Z ADD_NN_N(const Z& z1, const Z& z2);
+
+/*
+ * Z-10
+*/
+Z operator%(const Z& z1, const Z& z2);
+Z MOD_ZZ_Z(const Z& z1, const Z& z2);
 
 /*
  * End Masha

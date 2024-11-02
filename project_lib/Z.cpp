@@ -55,6 +55,49 @@ uint8_t POZ_Z_D(const Z& num) {
 }
 
 /*
+ * Z-6
+*/
+Z operator+(const Z& z1, const Z& z2) {
+  N n1{z1.digits};
+  N n2{z2.digits};
+
+  Z result;
+  if (z1.sign == z2.sign) {
+    result.digits = (n1 + n2).digits;
+    result.sign = z1.sign;
+  } else {
+    result.digits = SUB_NN_N(n1, n2).digits;
+    result.sign = (n1 < n2) ? z2.sign : z1.sign;
+  }
+  return result;
+}
+
+Z& Z::operator+=(const Z& z) {
+  *this = *this + z;
+  return *this;
+}
+
+Z ADD_NN_N(const Z& z1, const Z& z2) {
+  return z1 + z2;
+}
+
+/*
+ * Z-10
+*/
+Z operator%(const Z& z1, const Z& z2) {
+  return z1 - (z2 * (z1 / z2));
+}
+
+Z& Z::operator%=(const Z& z2) {
+  *this = *this % z2;
+  return *this;
+}
+
+Z MOD_ZZ_Z(const Z& z1, const Z& z2) {
+  return z1 % z2;
+}
+
+/*
  * End Masha
 */
 
@@ -78,12 +121,16 @@ Z TRANS_N_Z(const N& n) {
 /*
  * Z-8
 */
-Z MUL_ZZ_Z(const Z& z1, const Z& z2) {
+Z operator*(const Z& z1, const Z& z2) {
   Z result;
   result = z1*z2;
   result.sign = z1.sign != z2.sign;
 
   return result;
+}
+
+Z MUL_ZZ_Z(const Z& z1, const Z& z2) {
+  return z1 * z2;
 }
 
 /*

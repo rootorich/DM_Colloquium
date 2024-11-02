@@ -283,9 +283,10 @@ N operator+(const N& n1, const N& n2) {
   return result;
 }
 
-N& operator+=(N& n1, const N& n2) {
-  n1 = n1 + n2;
-  return n1;
+
+N& N::operator+=(const N& n) {
+  *this = *this + n;
+  return *this;
 }
 
 N ADD_NN_N(const N& n1, const N& n2) {
