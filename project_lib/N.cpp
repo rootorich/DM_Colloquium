@@ -204,20 +204,14 @@ N SUB_NN_N(const N& n1, const N& n2) {
 N DIV_NN_Dk(const N& n1, const N& n2) {
   N res = n2;
 
-  // Нужно пофиксить !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
   size_t k = n1.digits.size() - res.digits.size();
-  uint8_t D;
 
-  if (n1.digits.back() > res.digits.back()) {
-    D = n1.digits.back() / res.digits.back();
-    return N{{D}} << k;
+  if (n1.digits.back() < res.digits.back()) {
+    k -= 1;
   }
 
-  k -= 1;
   res = res << k;
-  N sum;
-  sum.digits = res.digits;
+  N sum = res;
   uint8_t i = 0;
 
   while (n1 > sum) {
