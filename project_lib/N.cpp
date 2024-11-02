@@ -68,7 +68,7 @@ N operator/(const N& num1, const N& num2) {
 
   while(n1 >= num2){
     N tmp = DIV_NN_Dk(n1, num2);
-    res.digits.push_back(tmp.digits.back());
+    res.digits.insert(res.digits.begin(), tmp.digits.back());
     n1 = n1 - (num2*tmp);
   }
 
@@ -111,8 +111,33 @@ N LCM_NN_N(const N& num1, const N& num2){
 
 /*
  * Savranraskii Danila
+*/
+
+N::N(const std::string& str) {
+  for (char c : str) {
+    if (c < '0' || c > '9') {
+      continue;
+    }
+    digits.insert(digits.begin(), c - '0');
+  }
+}
+
+N::N(const std::vector<uint8_t>& vec) {
+  digits = vec;
+}
+
+std::string N::to_str() {
+  std::string str;
+  for (uint8_t digit : digits) {
+    str = (char)(digit + '0') + str;
+  }
+  return str;
+}
+
+/*
  * N-1
 */
+
 bool operator==(const N &n1, const N &n2) {
   return n1.digits == n2.digits;
 }
@@ -201,12 +226,11 @@ N SUB_NN_N(const N& n1, const N& n2) {
 */
 
 N DIV_NN_Dk(const N& n1, const N& n2) {
-
   size_t k = n1.digits.size() - n2.digits.size();
 
   N res = n2 << k;
 
-  if (n1 > res) {
+  if (n1 < res) {
     k -= 1;
   }
 
@@ -219,7 +243,7 @@ N DIV_NN_Dk(const N& n1, const N& n2) {
     ++i;
   }
 
-  return N{{i}} << k;
+  return N{std::vector<uint8_t>{i}} << k;
 }
 
 /*

@@ -9,6 +9,11 @@ struct Z : N {
   Z& operator=(const N& n);
   Z& operator+=(const Z& z);
   Z& operator%=(const Z& z2);
+
+  Z() = default;
+  Z(const std::string& str);
+
+  std::string to_str();
 };
 
 /*

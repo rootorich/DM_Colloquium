@@ -1,6 +1,7 @@
 #include <vector>
 #include <cstdint>
 #include <utility>
+#include <string>
 
 #ifndef DM_COLLOQUIUM_N_H
 #define DM_COLLOQUIUM_N_H
@@ -10,6 +11,12 @@ struct N {
 
   N& operator+=(const N& n);
   N& operator*=(const N& n);
+
+  N() = default;
+  N(const std::string& str);
+  N(const std::vector<uint8_t>& vec);
+
+  std::string to_str();
 };
 
 /*
