@@ -107,5 +107,16 @@ N SUB_NDN_N(const N& n1, const uint8_t d, const N& n2);
  * End Masha
 */
 
+
+/*
+ * Kate
+ * N-13
+*/
+N GCF_NN_N(N& n1, N& n2);
+void CLR_V_V(N& num);
+/*
+ * End Kate
+*/
+
 #endif
 

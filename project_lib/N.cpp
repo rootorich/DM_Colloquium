@@ -341,3 +341,28 @@ N SUB_NDN_N(const N& n1, const uint8_t d, const N& n2) {
  * End Masha
 */
 
+
+/*
+ * Kate
+ * N-13
+*/
+N GCF_NN_N(N& n1, N& n2) {
+  while (n2 != 0) {
+    if (n1 < n2) {
+      std::swap(n1, n2);
+    }
+    n1 = n1 % n2;
+  }
+  return n1;
+}
+
+void CLR_V_V(N& num) {
+  while (num.digits.size() > 1 && num.digits.back() == 0) {
+    num.digits.pop_back();
+  }
+}
+
+/*
+ * End Kate
+*/
+
