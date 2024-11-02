@@ -19,4 +19,30 @@ bool INT_Q_B(const Q& ratio){
     return false;
 
 }
+
+
+Q& Q:: operator=(const Z& z1){
+
+    z = z1;
+    n.digits.emplace_back(1);
+    
+    return *this;
+
+}
+
+Q TRANS_Z_Q(const Z& z){
+
+    Q q;
+    q = z;
+    return q;
+
+}
+
+Z TRANS_Q_Z(const Q& ratio){
+
+    Z z;
+    z = ratio.z;
+    return z;
+    
+}
 //Efimova
