@@ -64,15 +64,17 @@ N operator/(const N& num1, const N& num2) {
   N n1 = num1;
   N res;
 
-  if (n1 < num2) res.digits.push_back(0);
+  if (n1 < num2) {
+    return N{0};
+  }
 
   while(n1 >= num2){
     N tmp = DIV_NN_Dk(n1, num2);
     res.digits.push_back(tmp.digits.back());
-    n1 = n1 - (num2*tmp);
+    n1 = n1 - (num2 * tmp);
   }
 
-  CLR_V_V(res);
+  std::reverse(res.digits.begin(), res.digits.end());
 
   return res;
 }

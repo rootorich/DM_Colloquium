@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <utility>
 #include <string>
+#include <algorithm>
 
 #ifndef DM_COLLOQUIUM_N_H
 #define DM_COLLOQUIUM_N_H
