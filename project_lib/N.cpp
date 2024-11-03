@@ -220,7 +220,7 @@ N DIV_NN_Dk(const N& n1, const N& n2) {
 }
 
 /*
- * Dop-2.1 (str to N)
+ * N-Dop-2.1 (str to N)
 */
 N::N(const std::string& str) {
   for (auto ch = str.rbegin(); ch != str.rend(); ++ch) {
@@ -229,14 +229,14 @@ N::N(const std::string& str) {
 }
 
 /*
- * Dop-2.2 (vector to N)
+ * N-Dop-2.2 (vector to N)
 */
 N::N(const std::vector<uint8_t>& vec) {
   digits = vec;
 }
 
 /*
- * Dop-2.3 (N to str)
+ * N-Dop-2.3 (N to str)
 */
 std::string N::to_str() {
   std::string str;
@@ -247,7 +247,7 @@ std::string N::to_str() {
 }
 
 /*
- * Dop-2.4 (digit to N)
+ * N-Dop-2.4 (digit to N)
 */
 N::N(const uint8_t digit) {
   digits = {digit};
@@ -398,6 +398,9 @@ N GCF_NN_N(const N& n1, const N& n2) {
   return t1;
 }
 
+/*
+ * N-Dop-1
+*/
 void CLR_V_V(N& num) {
   while (num.digits.size() > 1 && num.digits.back() == 0) {
     num.digits.pop_back();

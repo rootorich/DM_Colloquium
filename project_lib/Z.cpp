@@ -79,9 +79,8 @@ Z operator+(const Z& z1, const Z& z2) {
   return result;
 }
 
-Z& Z::operator+=(const Z& z) {
-  *this = *this + z;
-  return *this;
+void operator+=(Z& z1, const Z& z2) {
+  z1 = z1 + z2;
 }
 
 Z ADD_NN_N(const Z& z1, const Z& z2) {
@@ -95,9 +94,8 @@ Z operator%(const Z& z1, const Z& z2) {
   return z1 - (z2 * (z1 / z2));
 }
 
-Z& Z::operator%=(const Z& z2) {
-  *this = *this % z2;
-  return *this;
+void operator%=(Z& z1, const Z& z2) {
+  z1 = z1 % z2;
 }
 
 Z MOD_ZZ_Z(const Z& z1, const Z& z2) {
@@ -144,4 +142,55 @@ Z MUL_ZZ_Z(const Z& z1, const Z& z2) {
 
 /*
  * End Efimova
+*/
+
+
+/*
+ * Savranraskii Danila
+*/
+
+/*
+ * Z-Dop-1.1
+*/
+Z::Z(const std::string& str) {
+  sign = str[0] == '-';
+
+  for (auto digit = str.rbegin(); digit != str.rend() - sign; ++digit) {
+    digits.push_back(*digit - '0');
+  }
+}
+
+/*
+ * Z-Dop-1.2
+*/
+std::string Z::to_str() {
+  std::string str;
+  if (sign) {
+    str += '-';
+  }
+
+  for (auto digit = digits.rbegin(); digit != digits.rend(); ++digit) {
+    str += char(*digit + '0');
+  }
+
+  return str;
+}
+
+/*
+ * Z-7
+*/
+Z operator-(const Z& z1, const Z& z2) {
+  return z1 + (-z2);
+}
+
+void operator-=(Z& z1, const Z& z2) {
+  z1 = z1 - z2;
+}
+
+Z SUB_ZZ_Z(const Z& z1, const Z& z2) {
+  return z1 - z2;
+}
+
+/*
+ * End Savranraskii Danila
 */
