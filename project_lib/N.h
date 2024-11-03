@@ -1,6 +1,7 @@
 #include <vector>
 #include <cstdint>
 #include <utility>
+#include <string>
 
 #ifndef DM_COLLOQUIUM_N_H
 #define DM_COLLOQUIUM_N_H
@@ -8,8 +9,12 @@
 struct N {
   std::vector <uint8_t> digits;
 
-  N& operator+=(const N& n);
-  N& operator*=(const N& n);
+  N() = default;
+  explicit N(uint8_t digit);
+  explicit N(const std::string& str);
+  explicit N(const std::vector<uint8_t>& vec);
+
+  std::string to_str();
 };
 
 /*
@@ -25,9 +30,9 @@ bool NZER_N_B(const N& num);
 /*
  *  N-6
 */
-N operator*(const uint8_t digit, const N& num);
-N operator*(const N& num, const uint8_t digit);
-N MUL_ND_N(const N& num, const uint8_t digit);
+N operator*(uint8_t digit, const N& num);
+N operator*(const N& num, uint8_t digit);
+N MUL_ND_N(const N& num, uint8_t digit);
 
 /*
  * N-11
@@ -70,7 +75,6 @@ N SUB_NN_N(const N& n1, const N& n2);
 */
 N DIV_NN_Dk(const N& n1, const N& n2);
 
-
 /*
  * End Savranraskii Danila
 */
@@ -80,32 +84,34 @@ N DIV_NN_Dk(const N& n1, const N& n2);
  * N-3
 */
 void operator++(N& num);
-N operator+(const N& n1, const uint8_t);
+N operator+(const N& n1, uint8_t);
 const N ADD_1N_N(N num);
 
 /*
  * N-4
 */
 N operator+(const N& n1, const N& n2);
+void operator+=(N& n1, const N& n2);
 N ADD_NN_N(const N& n1, const N& n2);
 
 /*
  * N-7
 */
-N MUL_Nk_N(const N& num, const uint8_t k);
-N operator<<(const N& num, const uint8_t k);
-void operator<<=(N& num, const uint8_t k);
+N MUL_Nk_N(const N& num, uint8_t k);
+N operator<<(const N& num, uint8_t k);
+void operator<<=(N& num, uint8_t k);
 
 /*
  *N-8
 */
 N operator*(const N& n1, const N& n2);
+void operator*=(N& n1, const N& n2);
 N MUL_NN_N(const N& n1, const N& n2);
 
 /*
  * N-9
 */
-N SUB_NDN_N(const N& n1, const uint8_t d, const N& n2);
+N SUB_NDN_N(const N& n1, uint8_t d, const N& n2);
 
 /*
  * End Masha

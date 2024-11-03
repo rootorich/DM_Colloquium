@@ -158,7 +158,6 @@ uint8_t COM_NN_D(const N &n1, const N &n2) {
 /*
 * N-5
 */
-
 N operator-(const N& n1, const N& n2) {
   N result;
   result.digits = n1.digits;
@@ -199,25 +198,17 @@ N SUB_NN_N(const N& n1, const N& n2) {
 /*
  * N-10
 */
-
-// Не тестил пока сложения нет
 N DIV_NN_Dk(const N& n1, const N& n2) {
-  N res = n2;
+  size_t k = n1.digits.size() - n2.digits.size();
 
-  // Нужно пофиксить !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  N res = n2 << k;
 
-  size_t k = n1.digits.size() - res.digits.size();
-  uint8_t D;
-
-  if (n1.digits.back() > res.digits.back()) {
-    D = n1.digits.back() / res.digits.back();
-    return N{{D}} << k;
+  if (n1 < res) {
+    k -= 1;
   }
 
-  k -= 1;
-  res = res << k;
-  N sum;
-  sum.digits = res.digits;
+  res = n2 << k;
+  N sum = res;
   uint8_t i = 0;
 
   while (n1 > sum) {
@@ -225,7 +216,41 @@ N DIV_NN_Dk(const N& n1, const N& n2) {
     ++i;
   }
 
-  return N{{i}} << k;
+  return N{i} << k;
+}
+
+/*
+ * Dop-2.1 (str to N)
+*/
+N::N(const std::string& str) {
+  for (auto ch = str.rbegin(); ch != str.rend(); ++ch) {
+    digits.push_back(*ch - '0');
+  }
+}
+
+/*
+ * Dop-2.2 (vector to N)
+*/
+N::N(const std::vector<uint8_t>& vec) {
+  digits = vec;
+}
+
+/*
+ * Dop-2.3 (N to str)
+*/
+std::string N::to_str() {
+  std::string str;
+  for (auto digit = digits.rbegin(); digit != digits.rend(); ++digit) {
+    str += char(*digit + '0');
+  }
+  return str;
+}
+
+/*
+ * Dop-2.4 (digit to N)
+*/
+N::N(const uint8_t digit) {
+  digits = {digit};
 }
 
 /*
@@ -238,12 +263,12 @@ N DIV_NN_Dk(const N& n1, const N& n2) {
  * N-3
 */
 void operator++(N& num) {
-  N num_one{std::vector<uint8_t>{1}};
+  N num_one{1};
   num += num_one;
 }
 
 N operator+(const N& n1, const uint8_t digit) {
-  N n2 {std::vector<uint8_t>{digit}};
+  N n2 {digit};
   return n1 + n2;
 }
 
@@ -283,10 +308,8 @@ N operator+(const N& n1, const N& n2) {
   return result;
 }
 
-
-N& N::operator+=(const N& n) {
-  *this = *this + n;
-  return *this;
+void operator+=(N& n1, const N& n2) {
+  n1 = n1 + n2;
 }
 
 N ADD_NN_N(const N& n1, const N& n2) {
@@ -332,10 +355,10 @@ N operator*(const N& n1, const N& n2) {
   return result;
 }
 
-N& N::operator*=(const N& n) {
-  *this = *this * n;
-  return *this;
+void operator*=(N& n1, const N& n2) {
+  n1 = n1 * n2;
 }
+
 
 N MUL_NN_N(const N& n1, const N& n2) {
   return n1 * n2;
