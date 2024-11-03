@@ -60,10 +60,11 @@ uint8_t POZ_Z_D(const Z& num) {
  * Z-6
 */
 Z operator+(const Z& z1, const Z& z2) {
-  N n1{z1.digits};
-  N n2{z2.digits};
+  N n1 = z1;
+  N n2 = z2;
 
   Z result;
+
   if (z1.sign == z2.sign) {
     result.digits = (n1 + n2).digits;
     result.sign = z1.sign;
@@ -76,6 +77,7 @@ Z operator+(const Z& z1, const Z& z2) {
       result.sign = z2.sign;
     }
   }
+
   return result;
 }
 
