@@ -39,6 +39,27 @@ N TRANS_Z_N(const Z& z) {
 }
 
 /*
+ * Z-9
+*/
+Z operator/(const Z& z1, const Z& z2) {
+  N n1 = z1;
+  N n2 = z2;
+  Z result;
+
+  result = n1 / n2;
+  result.sign = z1.sign != z2.sign;
+
+  return result;
+}
+
+Z DIV_ZZ_Z(const Z& z1, const Z& z2) {
+  return z1 / z2;
+}
+/*
+ * End Kate
+*/
+
+/*
  * End Kate
 */
 
@@ -93,7 +114,10 @@ Z ADD_NN_N(const Z& z1, const Z& z2) {
  * Z-10
 */
 Z operator%(const Z& z1, const Z& z2) {
-  return z1 - (z2 * (z1 / z2));
+  Z result = z1 / z2;
+  result = z1 - (result * z2);
+
+  return result;
 }
 
 void operator%=(Z& z1, const Z& z2) {
@@ -132,6 +156,7 @@ Z operator*(const Z& z1, const Z& z2) {
   N n1 = z1;
   N n2 = z2;
   Z result;
+
   result = n1 * n2;
   result.sign = z1.sign != z2.sign;
 

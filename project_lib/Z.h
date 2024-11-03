@@ -32,6 +32,12 @@ Z MUL_ZM_Z(const Z& z);
 N TRANS_Z_N(const Z& z);
 
 /*
+ * Z-9
+*/
+Z operator/(const Z& z1, const Z& z2);
+Z DIV_ZZ_Z(const Z& z1, const Z& z2);
+
+/*
  * End Kate
 */
 
