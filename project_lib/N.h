@@ -85,7 +85,7 @@ N DIV_NN_Dk(const N& n1, const N& n2);
 */
 void operator++(N& num);
 N operator+(const N& n1, uint8_t);
-const N ADD_1N_N(N num);
+N ADD_1N_N(N num);
 
 /*
  * N-4
