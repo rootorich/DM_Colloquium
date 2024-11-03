@@ -85,7 +85,7 @@ N DIV_NN_Dk(const N& n1, const N& n2);
  * N-3
 */
 void operator++(N& num);
-N operator+(const N& n1, uint8_t);
+N operator+(const N& n1, uint8_t digit);
 N ADD_1N_N(const N& num);
 
 /*
@@ -112,7 +112,7 @@ N MUL_NN_N(const N& n1, const N& n2);
 /*
  * N-9
 */
-N SUB_NDN_N(const N& n1, uint8_t d, const N& n2);
+N SUB_NDN_N(const N& n1, const N& n2, uint8_t d);
 
 /*
  * End Masha

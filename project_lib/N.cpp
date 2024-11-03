@@ -369,7 +369,7 @@ N MUL_NN_N(const N& n1, const N& n2) {
 /*
  * N-9
 */
-N SUB_NDN_N(const N& n1, const uint8_t d, const N& n2) {
+N SUB_NDN_N(const N& n1, const N& n2, const uint8_t d) {
   N n3 = d * n2;
 //  if (n1 < n3)
 //    throw std::invalid_argument("Subtrahend is bigger than number.");
