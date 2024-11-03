@@ -51,21 +51,18 @@ Z::Z(const std::string& str) {
   if (str[0] == '-') {
     sign = true;
   }
-  for (char c : str) {
-    if (c < '0' || c > '9') {
-      continue;
-    }
-    digits.insert(digits.begin(), uint8_t(c - '0'));
+  for (auto digit = str.rbegin(); digit != str.rend() - sign; ++digit) {
+    digits.push_back(*digit - '0');
   }
 }
 
 std::string Z::to_str() {
   std::string str;
-  for (uint8_t digit : digits) {
-    str = (char)(digit + '0') + str;
-  }
   if (sign) {
-    str = "-" + str;
+    str += '-';
+  }
+  for (auto digit = digits.rbegin(); digit != digits.rend(); ++digit) {
+    str += char(*digit + '0');
   }
   return str;
 }

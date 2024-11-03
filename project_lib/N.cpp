@@ -114,11 +114,8 @@ N LCM_NN_N(const N& num1, const N& num2){
 */
 
 N::N(const std::string& str) {
-  for (char c : str) {
-    if (c < '0' || c > '9') {
-      continue;
-    }
-    digits.insert(digits.begin(), c - '0');
+  for (auto ch = str.rbegin(); ch != str.rend(); ++ch) {
+    digits.push_back(*ch - '0');
   }
 }
 
@@ -128,8 +125,8 @@ N::N(const std::vector<uint8_t>& vec) {
 
 std::string N::to_str() {
   std::string str;
-  for (uint8_t digit : digits) {
-    str = (char)(digit + '0') + str;
+  for (auto digit = digits.rbegin(); digit != digits.rend(); ++digit) {
+    str += char(*digit + '0');
   }
   return str;
 }
