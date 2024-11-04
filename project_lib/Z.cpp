@@ -180,10 +180,24 @@ Z MUL_ZZ_Z(const Z& z1, const Z& z2) {
  * Z-Dop-1.1
 */
 Z::Z(const std::string& str) {
-  sign = str[0] == '-';
+  /*
+  std::string temp = str;
 
-  for (auto digit = str.rbegin(); digit != str.rend() - sign; ++digit) {
+  sign = temp[0] == '-';
+
+  for (auto digit = temp.rbegin(); digit != (temp.rend() - sign); ++digit) {
     digits.push_back(*digit - '0');
+  }
+  */
+  size_t i = str.size() - 1;
+  while (true) {
+    digits.push_back(str[i] - '0');
+
+    if (i == 0) {
+      break;
+    }
+
+    --i;
   }
 }
 
@@ -195,9 +209,21 @@ std::string Z::to_str() {
   if (sign) {
     str += '-';
   }
-
+/*
   for (auto digit = digits.rbegin(); digit != digits.rend(); ++digit) {
     str += char(*digit + '0');
+  }
+*/
+  size_t i = digits.size() - 1;
+  while (true) {
+    digits.push_back(str[i] - '0');
+    str += char(digits[i] + '0');
+
+    if (i == 0) {
+      break;
+    }
+
+    --i;
   }
 
   return str;
