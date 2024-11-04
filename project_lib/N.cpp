@@ -30,6 +30,10 @@ bool NZER_N_B(const N& num) {
  * N-6
 */
 N operator*(const N& num, const uint8_t digit){
+  if(digit == 0){
+    return N{0};
+  }
+
   N result;
   uint8_t carry = 0;
   for (uint8_t numDigit : num.digits) {
@@ -327,7 +331,7 @@ N operator<<(const N& num, const uint8_t k) {
     std::vector<uint8_t> zeros(k, 0);
     result.digits.insert(result.digits.begin(), zeros.begin(), zeros.end());
   }
-  
+
   return result;
 }
 
