@@ -59,28 +59,59 @@ N MUL_ND_N(const N& num, const uint8_t digit){
 /*
  * N-11
 */
+// Перегрузка оператора деления для N
 N operator/(const N& num1, const N& num2) {
 
-//  if (num2 == 0) {
-//    throw std::invalid_argument("Division by zero");
-//  }
-
-  N n1 = num1;
-  N res;
-
-  if (n1 < num2) {
-    return N{0};
-  }
-
+  // Копируем входные числа для работы с ними, не изменяя оригиналы.
+  N n1 = num1;  
+  N res{};               // Объявляем переменную для хранения результата деления.
+  N prev_tmp{};         // Временная переменная для хранения предыдущего результата деления.
+  N tmp{0};            // Временная переменная для временного результата деления.
+  int cnt = 0;        // Счетчик количества повторений цикла.
+  // Если первое число меньше второго, результат деления будет 0 (в данном контексте это значит, что n1 < num2).
+  if(n1 < num2) return tmp;
+  // Пока n1 больше или равно num2 (основной цикл деления).
   while(n1 >= num2){
-  
-    N tmp = DIV_NN_Dk(n1, num2);
+    cnt+=1;                      // Увеличиваем счетчик, чтобы отслеживать, сколько раз мы выполняем деление.
+    tmp = DIV_NN_Dk(n1, num2);  // Выполняем деление n1 на num2 и получаем временный результат.
+    // Получаем размеры предыдущего и текущего результата (количество цифр).
+    size_t prev_dif = prev_tmp.digits.size();
+    size_t current_dif = tmp.digits.size();
+    // Вычисляем разницу в количестве цифр.
+    size_t difference = prev_dif - current_dif;
+    // Если предыдущее значение было нулевым (размер 0).
+    if (prev_dif == 0){
+        int i = 0;
+        res.digits.push_back(tmp.digits.back());   // Сохраняем старший разряд временного результата в итоговый результат.
+        prev_tmp = tmp;                           // Обновляем предыдущее значение.
+    }else {
+          // Если разница в размере больше 1, заполняем нулями.
+          if (difference > 1) {
+            for (size_t i = 0; i < difference-1; ++i) {
+                res.digits.push_back(0);        // Добавляем нужное количество нулей в результат.
+            }
+          }
+        res.digits.push_back(tmp.digits.back()); // Добавляем старший разряд текущего результата в итоговый результат.
+        prev_tmp = tmp;                         // Обновляем предыдущее значение.
+      }
+    
     n1 = n1 - (num2 * tmp);
-    res+=tmp;
+    int i = 0;
+    // Если n1 меньше num2 или мы достигли 0, проверяем нули в tmp.
+    if (n1 < num2 || (n1 == 0 && tmp.digits.front() == 0)){
+      // Пока цифры в tmp равны 0, добавляем нули в результат.
+      while (tmp.digits[i] == 0 && i < tmp.digits.size()){
+        res.digits.push_back(0);
+        i++;
+      }
+    }
   }
 
-  return res;
+  if(cnt == 1) res = tmp; // Если было только одно деление, результат - это tmp.
+  else std::reverse(res.digits.begin(), res.digits.end()); // Обратный порядок цифр
+  return res; // Возвращаем результат деления.
 }
+
 
 N DIV_NN_N(const N& num1, const N& num2){
   return num1 / num2;
