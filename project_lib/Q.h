@@ -41,4 +41,23 @@ Q ADD_QQ_Q(const Q& q1, const Q& q2);
  * End Efimova
 */
 
+
+/*
+ * Kate
+ * Q-6
+*/
+Q operator-(const Q& q);
+Q operator-(const Q& q1, const Q& q2);
+Q SUB_QQ_Q(const Q& q1, const Q& q2);
+
+/*
+ * Q-7
+*/
+Q operator*(const Q& q1, const Q& q2);
+Q MUL_QQ_Q(const Q& q1, const Q& q2);
+
+/*
+ * End Kate
+*/
+
 #endif

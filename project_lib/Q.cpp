@@ -77,3 +77,39 @@ Q ADD_QQ_Q(const Q& q1, const Q& q2){
 /*
  * End Efimova
 */
+
+
+
+/*
+ * Kate
+ * Q-6
+*/
+Q operator-(const Q& q) {
+  Q result = q;
+  result.z = -result.z;
+
+  return result;
+}
+
+Q operator-(const Q& q1, const Q& q2) {
+  return RED_Q_Q(q1 + (-q2));
+}
+
+Q SUB_QQ_Q(const Q& q1, const Q& q2) {
+  return q1 - q2;
+}
+
+/*
+ * Q-7
+*/
+Q operator*(const Q& q1, const Q& q2) {
+  Q result;
+  result.z = q1.z * q2.z;
+  result.n = q1.n * q2.n;
+
+  return RED_Q_Q(result);
+}
+
+Q MUL_QQ_Q(const Q& q1, const Q& q2) {
+  return q1 * q2;
+}
