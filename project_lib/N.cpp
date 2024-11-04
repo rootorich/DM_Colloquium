@@ -31,6 +31,10 @@ bool NZER_N_B(const N& num) {
 */
 N operator*(const N& num, const uint8_t digit){
   N result;
+  if(digit == 0){
+    return N{0};
+  }
+  
   uint8_t carry = 0;
   for (uint8_t numDigit : num.digits) {
     uint8_t product = (numDigit * digit) + carry;
@@ -69,12 +73,11 @@ N operator/(const N& num1, const N& num2) {
   }
 
   while(n1 >= num2){
+  
     N tmp = DIV_NN_Dk(n1, num2);
-    res.digits.push_back(tmp.digits.back());
     n1 = n1 - (num2 * tmp);
+    res+=tmp;
   }
-
-  std::reverse(res.digits.begin(), res.digits.end());
 
   return res;
 }
@@ -213,7 +216,7 @@ N DIV_NN_Dk(const N& n1, const N& n2) {
   N sum = res;
   uint8_t i = 0;
 
-  while (n1 > sum) {
+  while (n1 >= sum) {
     sum = sum + res;
     ++i;
   }
