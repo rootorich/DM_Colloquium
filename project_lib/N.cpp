@@ -56,25 +56,23 @@ N MUL_ND_N(const N& num, const uint8_t digit){
  * N-11
 */
 N operator/(const N& num1, const N& num2) {
-
 //  if (num2 == 0) {
 //    throw std::invalid_argument("Division by zero");
 //  }
 
-  N n1 = num1;
-  N res;
-
-  if (n1 < num2) {
+  if (num1 < num2) {
     return N{0};
   }
 
+  N n1 = num1;
+  N res;
+
   while(n1 >= num2){
     N tmp = DIV_NN_Dk(n1, num2);
-    res.digits.push_back(tmp.digits.back());
     n1 = n1 - (num2 * tmp);
-  }
 
-  std::reverse(res.digits.begin(), res.digits.end());
+    res += tmp;
+  }
 
   return res;
 }
@@ -213,7 +211,7 @@ N DIV_NN_Dk(const N& n1, const N& n2) {
   N sum = res;
   uint8_t i = 0;
 
-  while (n1 > sum) {
+  while (n1 >= sum) {
     sum = sum + res;
     ++i;
   }
@@ -324,10 +322,12 @@ N ADD_NN_N(const N& n1, const N& n2) {
 
 N operator<<(const N& num, const uint8_t k) {
   N result = num;
+
   if (num != 0) {
     std::vector<uint8_t> zeros(k, 0);
     result.digits.insert(result.digits.begin(), zeros.begin(), zeros.end());
   }
+  
   return result;
 }
 
