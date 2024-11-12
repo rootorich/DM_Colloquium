@@ -11,7 +11,7 @@ struct N {
   std::vector <uint8_t> digits;
 
   N() = default;
-  explicit N(uint8_t digit);
+  explicit N(const uint64_t& number);
   explicit N(const std::string& str);
   explicit N(const std::vector<uint8_t>& vec);
 

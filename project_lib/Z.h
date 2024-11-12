@@ -9,7 +9,8 @@ struct Z : N {
   Z& operator=(const N& n);
 
   Z() = default;
-  Z(const std::string& str);
+  explicit Z(const int64_t& number);
+  explicit Z(const std::string& str);
 
   std::string to_str();
 };

@@ -180,25 +180,12 @@ Z MUL_ZZ_Z(const Z& z1, const Z& z2) {
  * Z-Dop-1.1
 */
 Z::Z(const std::string& str) {
-  /*
-  std::string temp = str;
-
-  sign = temp[0] == '-';
-
-  for (auto digit = temp.rbegin(); digit != (temp.rend() - sign); ++digit) {
-    digits.push_back(*digit - '0');
-  }
-  */
+  sign = str[0] == '-';
   size_t i = str.size() - 1;
-  while (true) {
+
+  do {
     digits.push_back(str[i] - '0');
-
-    if (i == 0) {
-      break;
-    }
-
-    --i;
-  }
+  } while (i-- != sign);
 }
 
 /*
@@ -209,24 +196,33 @@ std::string Z::to_str() {
   if (sign) {
     str += '-';
   }
-/*
-  for (auto digit = digits.rbegin(); digit != digits.rend(); ++digit) {
-    str += char(*digit + '0');
-  }
-*/
+
   size_t i = digits.size() - 1;
-  while (true) {
-    digits.push_back(str[i] - '0');
+  do {
     str += char(digits[i] + '0');
-
-    if (i == 0) {
-      break;
-    }
-
-    --i;
-  }
+  } while (i-- != 0);
 
   return str;
+}
+
+/*
+ * Z-Dop-1.3 (long to Z)
+*/
+Z::Z(const int64_t& number) {
+  int64_t tmp = number;
+
+  if (tmp < 0) {
+    sign = 1;
+    tmp = -tmp;
+  } 
+  else {
+    sign = 0;
+  }
+
+  while (tmp > 0) {
+    digits.push_back(tmp % 10);
+    tmp /= 10;
+  }
 }
 
 /*
