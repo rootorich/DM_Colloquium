@@ -12,6 +12,7 @@ struct P {
  * P-1
 */
 P operator+(const P& p1, const P& p2);
+void operator+=(P& p1, const P& p2);
 P ADD_PP_P(const P& p1, const P& p2);
 
 /*
@@ -36,7 +37,8 @@ P MUL_PQ_P(const P& p, const Q& q);
 * Savranraskii Danila
 * P-4
 */
-P MUL_Pxk_P(const P &p, uint32_t k);
+P operator<<(const P &p, const uint32_t k);
+P MUL_Pxk_P(const P &p, const uint32_t k);
 
 /*
  * P-5

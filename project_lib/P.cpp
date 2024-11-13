@@ -15,6 +15,10 @@ P operator+(const P& p1, const P& p2) {
   return result;
 }
 
+void operator+=(P& p1, const P& p2) {
+  p1 = p1 + p2;
+}
+
 P ADD_PP_P(const P& p1, const P& p2) {
   return p1 + p2;
 }
@@ -66,13 +70,17 @@ P MUL_PQ_P(const P& p, const Q& q) {
 * Savranraskii Danila
 * P-4
 */
-P MUL_Pxk_P(const P &p, uint32_t k) {
+P operator<<(const P &p, const uint32_t k) {
   P result = p;
 
-  Q zero = {Z("0"), N("1")};
+  Q zero = Q(0);
   result.a.insert(result.a.begin(), k, zero);
 
   return result;
+}
+
+P MUL_Pxk_P(const P &p, const uint32_t k) {
+  return p << k;
 }
 
 /*
@@ -115,9 +123,40 @@ Q FAC_P_Q(const P &p) {
     }
     ++i;
   }
-  return Q{TRANS_N_Z(GCF), LCM};
+  return Q(TRANS_N_Z(GCF), LCM);
 }
 
 /*
  * End Savranraskii Danila
+*/
+
+
+/*
+ * Efimova
+ * P-8
+*/
+P operator*(const P& p1, const P& p2){
+  P product;
+  product.a.emplace_back(0);
+
+  if((p1.a.size() == 1 && p1.a[0].z == 0 )||
+    (p2.a.size() == 1 && p2.a[0].z == 0 )){
+    return product;
+  }
+
+  for (size_t i = 0; i < p2.a.size(); ++i) {
+    if(p2.a[i].z != 0){
+      product += (p1 *p2.a[i]) << i;
+    }
+  }
+
+  return product;
+}
+
+P MUL_PP_P(const P& p1, const P& p2) {
+  return p1 * p2;
+}
+
+/*
+ * End Efimova
 */
