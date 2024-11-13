@@ -7,6 +7,9 @@ struct Q {
   Z z;
   N n;
 
+  Q() = default;
+  explicit Q(uint8_t digit);
+  explicit Q(const Z& z, const N& n);
   Q& operator=(const Z& z1);
 };
 

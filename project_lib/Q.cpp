@@ -113,3 +113,24 @@ Q operator*(const Q& q1, const Q& q2) {
 Q MUL_QQ_Q(const Q& q1, const Q& q2) {
   return q1 * q2;
 }
+
+/*
+ * End Kate
+*/
+
+
+/*
+ * Q-Dop-1.1
+*/
+Q::Q(uint8_t digit) {
+  z = Z(digit);
+  n = N(1);
+}
+
+/*
+ * Q-Dop-1.2
+*/
+Q::Q(const Z& t_z, const N& t_n) {
+  z = t_z;
+  n = t_n;
+}
