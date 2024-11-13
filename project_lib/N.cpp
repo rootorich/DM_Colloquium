@@ -227,22 +227,11 @@ N DIV_NN_Dk(const N& n1, const N& n2) {
  * N-Dop-2.1 (str to N)
 */
 N::N(const std::string& str) {
-/*
-  std::string temp = str;
-  for (auto ch = temp.rbegin(); ch != temp.rend(); ++ch) {
-    digits.push_back(*ch - '0');
-  }
-*/
   size_t i = str.size() - 1;
-  while (true) {
+
+  do {
     digits.push_back(str[i] - '0');
-
-    if (i == 0) {
-      break;
-    }
-
-    --i;
-  }
+  } while (i-- != 0);
 }
 
 /*
@@ -257,22 +246,12 @@ N::N(const std::vector<uint8_t>& vec) {
 */
 std::string N::to_str() {
   std::string str;
-/*
-  for (auto digit = digits.rbegin(); digit != digits.rend(); ++digit) {
-    str += char(*digit + '0');
-  }
-*/
+  size_t i = digits.size() - 1;
 
-  size_t i = str.size() - 1;
-  while (true) {
+  do {
     str += char(digits[i] + '0');
 
-    if (i == 0) {
-      break;
-    }
-
-    --i;
-  }
+  } while (i-- != 0);
 
   return str;
 }
@@ -421,14 +400,14 @@ N GCF_NN_N(const N& n1, const N& n2) {
   N t1 = n1;
   N t2 = n2;
 
-  while (t2 != 0) {
+  while (t1 != 0) {
     if (t1 < t2) {
       std::swap(t1, t2);
     }
     t1 = t1 % t2;
   }
 
-  return t1;
+  return t2;
 }
 
 /*
