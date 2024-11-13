@@ -57,10 +57,28 @@ Q SUB_QQ_Q(const Q& q1, const Q& q2);
  * Q-7
 */
 Q operator*(const Q& q1, const Q& q2);
+Q operator*(const Q& q1, const uint8_t digit);
 Q MUL_QQ_Q(const Q& q1, const Q& q2);
 
 /*
  * End Kate
 */
+
+
+
+/*
+ * Q-Dop-2.1
+*/
+bool operator<(const Q& q1, const Q& q2);
+
+/*
+ * Q-Dop-2.2
+*/
+bool operator==(const Q& q1, const Q& q2);
+
+/*
+ * Q-Dop-2.3
+*/
+bool operator==(const Q& q1, const uint8_t digit);
 
 #endif

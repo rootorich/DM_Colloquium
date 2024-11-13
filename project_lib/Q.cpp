@@ -57,15 +57,15 @@ Z TRANS_Q_Z(const Q& q){
 */
 Q operator+(const Q& q1, const Q& q2){
   Q res;
-  Q t1;
-  Q t2;
+  Z t1;
+  Z t2;
 
   res.n = LCM_NN_N(q1.n, q2.n);
 
-  t1.z = (q1.z * (res.n / q1.n));
-  t2.z = (q2.z * (res.n / q2.n));
+  t1 = (q1.z * (res.n / q1.n));
+  t2 = (q2.z * (res.n / q2.n));
 
-  res.z = t1.z + t2.z;
+  res.z = t1 + t2;
 
   return RED_Q_Q(res);
 }
@@ -110,6 +110,10 @@ Q operator*(const Q& q1, const Q& q2) {
   return RED_Q_Q(result);
 }
 
+Q operator*(const Q& q, const uint8_t digit) {
+  return RED_Q_Q(q * Q(digit));
+}
+
 Q MUL_QQ_Q(const Q& q1, const Q& q2) {
   return q1 * q2;
 }
@@ -133,4 +137,39 @@ Q::Q(uint8_t digit) {
 Q::Q(const Z& t_z, const N& t_n) {
   z = t_z;
   n = t_n;
+}
+
+/*
+ * Q-Dop-2.1
+*/
+bool operator<(const Q& q1, const Q& q2) {
+  Q lcn;
+  Z t1;
+  Z t2;
+
+  lcn.n = LCM_NN_N(q1.n, q2.n);
+
+  t1 = (q1.z * (lcn.n / q1.n));
+  t2 = (q2.z * (lcn.n / q2.n));
+
+  return t1 < t2;
+}
+
+/*
+ * Q-Dop-2.1
+*/
+bool operator==(const Q& q1, const Q& q2) {
+  Q lcn;
+  Z t1;
+  Z t2;
+
+  lcn.n = LCM_NN_N(q1.n, q2.n);
+
+  t1 = (q1.z * (lcn.n / q1.n));
+  t2 = (q2.z * (lcn.n / q2.n));
+
+  return t1 == t2;
+}
+bool operator==(const Q& q, const uint8_t digit) {
+  return q.z == digit && q.n == 1;
 }
