@@ -1,5 +1,8 @@
 #include "P.h"
 
+using namespace std::rel_ops;
+
+
 /*
  * Efimova
  * P-1
@@ -55,6 +58,10 @@ P operator*(const P& p, const Q& q) {
   }
 
   return result;
+}
+
+P operator*(const P& p, const uint8_t digit) {
+  return p * Q(digit);
 }
 
 P MUL_PQ_P(const P& p, const Q& q) {
@@ -160,3 +167,88 @@ P MUL_PP_P(const P& p1, const P& p2) {
 /*
  * End Efimova
 */
+
+
+/*
+ * Masha
+ * P-11
+*/
+P GCF_PP_P(const P& p1, const P& p2) {
+  P t1 = p1;
+  P t2 = p2;
+
+  while (t1 != 0) {
+    if (t1 < t2) {
+      std::swap(t1, t2);
+    }
+    t1 = t1 % t2;
+  }
+
+  return t2;
+}
+
+/*
+ P-12
+*/
+P DER_P_P(const P& p) {
+  P res;
+
+  for (uint8_t i = 1; i < p.a.size(); i++) {
+    res.a.emplace_back(p.a[i] * i);
+  }
+
+  return res;
+}
+
+/*
+ * End Masha
+*/
+
+
+/*
+ * P-Dop-1.1
+*/
+bool operator<(const P& p1, const P& p2) {
+  if (DEG_P_N(p1) < DEG_P_N(p2)) {
+    return true;
+  } else if (DEG_P_N(p1) > DEG_P_N(p2)) {
+    return false;
+  } else {
+    return (p1.a.back() < p2.a.back());
+  }
+}
+
+/*
+ * P-Dop-1.2
+*/
+bool operator==(const P& p1, const P& p2) {
+  if (DEG_P_N(p1) == DEG_P_N(p2)) {
+    size_t i = p1.a.size() - 1;
+
+    while (true) {
+      if (p1.a[i] != p2.a[i]) {
+        return false;
+      }
+      if (i == 0) {
+        break;
+      }
+
+      --i;
+    }
+
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool operator==(const P& p, const uint8_t digit) {
+  if (DEG_P_N(p) == 0) {
+    if (p.a.back() == digit) {
+      return true;
+    }
+  }
+
+  return false;
+}
+

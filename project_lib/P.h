@@ -59,4 +59,50 @@ Q FAC_P_Q(const P &p);
  * End Savranraskii Danila
 */
 
+
+/*
+ * Efimova
+ * P-8
+*/
+P operator*(const P& p1, const P& p2);
+P operator*(const P& p1, const uint8_t digit);
+
+P MUL_PP_P(const P& p1, const P& p2);
+
+/*
+ * End Efimova
+*/
+
+/*
+ * Masha
+ * P-11
+*/
+P GCF_PP_P(const P& p1, const P& p2);
+
+/*
+ P-12
+*/
+P DER_P_P(const P& p);
+
+/*
+ * End Masha
+*/
+
+
+
+/*
+ * P-Dop-1.1
+*/
+bool operator<(const P& p1, const P& p2);
+
+/*
+ * P-Dop-1.2
+*/
+bool operator==(const P& p1, const P& p2);
+
+/*
+ * P-Dop-1.3
+*/
+bool operator==(const P& p, const uint8_t digit);
+
 #endif
