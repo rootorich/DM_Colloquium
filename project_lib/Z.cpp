@@ -207,6 +207,13 @@ std::string Z::to_str() {
 }
 
 /*
+ * Z-Dop-1.3
+*/
+Z::Z(uint8_t digit) : N(digit) {
+  sign = 0;
+}
+
+/*
  * Z-7
 */
 Z operator-(const Z& z1, const Z& z2) {
