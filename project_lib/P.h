@@ -5,6 +5,11 @@
 
 struct P {
   std::vector<Q> a;
+
+  P();
+  P(const std::string& str);
+
+  std::string to_str();
 };
 
 /*

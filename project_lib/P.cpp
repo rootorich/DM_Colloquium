@@ -1,6 +1,12 @@
+#include <regex>
+#include <vector>
+#include <string>
+
 #include "P.h"
 
 using namespace std::rel_ops;
+
+P::P() {} 
 
 
 /*
@@ -181,7 +187,7 @@ P GCF_PP_P(const P& p1, const P& p2) {
     if (t1 < t2) {
       std::swap(t1, t2);
     }
-    t1 = t1 % t2;
+    //t1 = t1 % t2; <---------- uncomment
   }
 
   return t2;
@@ -252,3 +258,53 @@ bool operator==(const P& p, const uint8_t digit) {
   return false;
 }
 
+
+/* Masha
+ * P-Dop-1.1
+*/
+P::P(const std::string& str) {
+    std::regex pattern(R"(([+-]?\d*(/\d+)?)x\^?(\d*))");
+    // Container for the matches
+    std::smatch matches;
+
+    // Iterate over all matches
+    auto begin = std::sregex_iterator(str.begin(), str.end(), pattern);
+    auto end = std::sregex_iterator();
+
+    for (auto it = begin; it != end; ++it) {
+        std::string n = it->str(1);
+        // if (n[0] != '+' && n[0] != '-')
+        //     n = '+' + n;
+        std::string b = "1";
+        if (n.find('/') != std::string::npos) {
+            n = n.substr(0, n.find('/'));
+            b = it->str(2).substr(it->str(2).find('/')+1, it->str(2).size());
+        }
+
+        Q q(n, b);
+        int exp = 0;
+        if (it->str(3) != "")
+            exp = stoi(it->str(3));
+
+        if (a.size() < exp+1)
+            a.resize(exp+1, Q(0));
+        a[exp] = q;
+    }
+}
+
+/*
+ * P-Dop-1.2
+*/
+std::string P::to_str() {
+    std::string res;
+    for (int i = a.size()-1; i > 0; --i) {
+        if (a[i] != 0)
+            res += a[i].to_str() + "x^" + std::to_string(i) + " ";
+    }
+    if (a[0] != 0)
+        res += a[0].to_str();
+    return res;
+}
+/* 
+  End Masha
+*/

@@ -173,3 +173,23 @@ bool operator==(const Q& q1, const Q& q2) {
 bool operator==(const Q& q, const uint8_t digit) {
   return q.z == digit && q.n == 1;
 }
+
+/* Masha
+ * Q-Dop-1.3
+*/
+Q::Q(const std::string& str_a, const std::string& str_b) {
+    z = Z(str_a); 
+    n = N(str_b);
+}
+
+/*
+ * Q-Dop-1.4
+*/
+std::string Q::to_str() {
+    if (n == 1)
+        return z.to_str();
+    return z.to_str() + '/' + n.to_str();
+}
+/* 
+  End Masha
+*/

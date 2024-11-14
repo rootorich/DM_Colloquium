@@ -11,6 +11,9 @@ struct Q {
   explicit Q(uint8_t digit);
   explicit Q(const Z& z, const N& n);
   Q& operator=(const Z& z1);
+  explicit Q(const std::string& str_a, const std::string& str_b);
+
+  std::string to_str();
 };
 
 /*
