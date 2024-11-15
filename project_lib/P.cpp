@@ -343,7 +343,6 @@ std::string P::to_str() {
     if (a.size() > 1 && a[1] != 0)
         res += a[1].to_str() + "x ";
     if (a[0] != 0 || a.size() == 1) {
-        puts("OSdSDK");
         res += a[0].to_str();
     }
     if (res[0] == '+')
