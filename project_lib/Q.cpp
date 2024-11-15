@@ -132,6 +132,21 @@ Q MUL_QQ_Q(const Q& q1, const Q& q2) {
  * End Kate
 */
 
+/*
+ * Q-8
+*/
+Q operator/(const Q& q1, const Q& q2) {
+  Q temp = q2;
+
+  std::swap(temp.z.digits, temp.n.digits);
+
+  return q1 * temp;
+}
+
+Q DIV_QQ_Q(const Q& q1, const Q& q2) {
+  return q1 / q2;
+}
+
 
 /*
  * Q-Dop-1.1
@@ -192,10 +207,24 @@ Q::Q(const std::string& str_a, const std::string& str_b) {
     n = N(str_b);
 }
 
+Q::Q(const std::string& str) {
+    std::string str_a = str;
+    std::string str_b = "1";
+    if (str.find('/') != std::string::npos) {
+        str_a = str.substr(0, str.find('/'));
+        str_b = str.substr(str.find('/')+1);
+    }
+    z = Z(str_a); 
+    n = N(str_b);
+}
+
 /*
  * Q-Dop-1.4
 */
 std::string Q::to_str() {
+    if (N{z.digits} == 0)
+        return "0";
+
     if (n == 1)
         return z.to_str();
     return z.to_str() + '/' + n.to_str();
