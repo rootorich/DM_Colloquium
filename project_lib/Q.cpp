@@ -1,7 +1,5 @@
 #include "Q.h"
 
-#include <iostream>
-
 /*
  * Efimova
  * Q-1

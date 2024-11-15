@@ -79,6 +79,25 @@ P MUL_PP_P(const P& p1, const P& p2);
 */
 
 /*
+ * Kate
+ * P-9
+*/
+P operator/(const P& p1, const P& p2);
+
+P DIV_PP_P(const P& p1, const P& p2);
+
+/*
+ * P-10
+*/
+P operator%(const P& p1, const P& p2);
+
+P MOD_PP_P(const P& p1, const P& p2);
+
+/*
+ * End Kate
+*/
+
+/*
  * Masha
  * P-11
 */

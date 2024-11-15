@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Z.h"
 
 using namespace std::rel_ops;
@@ -83,6 +81,11 @@ uint8_t POZ_Z_D(const Z& num) {
  * Z-6
 */
 Z operator+(const Z& za, const Z& zb) {
+  if (za == 0)
+      return zb;
+  if (zb == 0)  
+      return za;
+    
   Z z1 = ABS_Z_Z(za);
   Z z2 = ABS_Z_Z(zb);
   
@@ -195,6 +198,9 @@ Z::Z(const std::string& in) {
  * Z-Dop-1.2
 */
 std::string Z::to_str() {
+  if (N{digits} == 0)
+    return "0";
+
   std::string str;
   if (sign) {
     str += '-';

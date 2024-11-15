@@ -1,7 +1,6 @@
 #include <regex>
 #include <vector>
 #include <string>
-#include <iostream>
 
 #include "P.h"
 
@@ -66,6 +65,8 @@ P operator*(const P& p, const Q& q) {
     result.a.push_back(a * q);
   }
 
+  CLR_P_V(result);
+
   return result;
 }
 
@@ -110,7 +111,7 @@ Q LED_P_Q(const P &p) {
  * P-6
 */
 N DEG_P_N(const P &p) {
-  return N(p.a.size() - 1);
+  return N(std::to_string(p.a.size() - 1));
 }
 
 /*
@@ -177,6 +178,53 @@ P MUL_PP_P(const P& p1, const P& p2) {
  * End Efimova
 */
 
+/*
+ * Kate
+ * P-9
+*/
+P operator/(const P& p1, const P& p2) {
+  if (DEG_P_N(p1) < DEG_P_N(p2)) {
+    return P("0");
+  }
+
+  P quotient;
+  P remainder = p1;
+
+  quotient.a.resize(p1.a.size() - p2.a.size() + 1);
+
+  for (size_t i = p1.a.size() - 1; i >= (p2.a.size()) - 1; --i) {
+    CLR_P_V(remainder);
+    if (remainder.a.size() <= i) continue; // не работает, пока нет удаление незначащих нулей
+    size_t shift = i + 1 - p2.a.size();
+    Q new_q = remainder.a[i] / p2.a.back();
+    
+    CLR_P_V(remainder);
+    remainder = remainder - (p2 << shift) * new_q; // не работает, пока не удаляются незначащие нули
+
+    quotient.a[shift] = new_q;
+  }
+
+  return quotient;
+}
+
+P DIV_PP_P(const P& p1, const P& p2) { return p1 / p2; }
+
+/*
+ * P-10
+*/
+P operator%(const P& p1, const P& p2) {
+  return p1 - ((p1 / p2) * p2);
+}
+
+P MOD_PP_P(const P& p1, const P& p2) {
+  return p1 % p2;
+}
+
+
+/*
+ * End Kate
+*/
+
 
 /*
  * Masha
@@ -190,7 +238,7 @@ P GCF_PP_P(const P& p1, const P& p2) {
     if (t1 < t2) {
       std::swap(t1, t2);
     }
-    //t1 = t1 % t2; <---------- uncomment
+    t1 = t1 % t2;
   }
 
   return t2;
@@ -202,9 +250,12 @@ P GCF_PP_P(const P& p1, const P& p2) {
 P DER_P_P(const P& p) {
   P res;
 
-  for (uint8_t i = 1; i < p.a.size(); i++) {
-    res.a.emplace_back(p.a[i] * i);
+  for (size_t i = 1; i < p.a.size(); i++) {
+    res.a.emplace_back(p.a[i] * Q(std::to_string(i), "1"));
   }
+
+  if (res.a.size() == 0)
+      res = P("0");
 
   return res;
 }
@@ -283,10 +334,11 @@ P::P(const std::string& str) {
 
     for (auto it = begin; it != end; ++it) {
         std::string n = it->str(1);
-        if (!isdigit(n[n.size() - 1]))
-          n = "1";
+        if (!isdigit(n[n.size() - 1])) {
+            n += "1";
+        }
         if (n[1] == ' ')
-          n = n[0] + n.substr(2, n.size());
+            n = n[0] + n.substr(2, n.size());
         if (n[0] != '+' && n[0] != '-')
             n = '+' + n;
         std::string b = "1";
@@ -314,17 +366,23 @@ P::P(const std::string& str) {
     }
 
     int ind = (minus > plus) ? minus : plus;
+    if (a.size() == 0) {
+        a.resize(1);
+        ind = 0;    // если было введено только число
+    }
+
     if (ind != -1 && str.substr(ind).find('x') == std::string::npos) {
         std::string n = str.substr(ind);
         if (n[1] == ' ')
           n = n[0] + n.substr(2, n.size());
+
         std::string e = n;
         std::string b = "1";
         if (n.find('/') != std::string::npos) {
             e = n.substr(0, n.find('/'));
             b = n.substr(n.find('/')+1, n.size());
         }
-        a[0] = Q(e, b);
+        a[0] = Q(n);
     }
 }
 
@@ -335,13 +393,20 @@ std::string P::to_str() {
     std::string res;
     for (int i = a.size()-1; i > 1; --i) {
         if (a[i] != 0) {
-          if (a[i] != 1)
-              res += a[i].to_str();
-          res += "x^" + std::to_string(i) + " ";
+            if (a[i] != 1 && a[i] != -1)
+                res += a[i].to_str();
+            else
+                res += a[i].to_str()[0];
+            res += "x^" + std::to_string(i) + " ";
         }
     }
-    if (a.size() > 1 && a[1] != 0)
-        res += a[1].to_str() + "x ";
+    if (a.size() > 1 && a[1] != 0) {
+        if (a[1] != 1 && a[1] != -1)
+            res += a[1].to_str();
+        else
+            res += a[1].to_str()[0];
+        res += "x ";
+    }
     if (a[0] != 0 || a.size() == 1) {
         res += a[0].to_str();
     }

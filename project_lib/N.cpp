@@ -250,7 +250,6 @@ std::string N::to_str() {
 
   do {
     str += char(digits[i] + '0');
-
   } while (i-- != 0);
 
   return str;
