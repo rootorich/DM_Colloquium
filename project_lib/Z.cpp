@@ -91,7 +91,7 @@ Z operator+(const Z& za, const Z& zb) {
   
   N n1 = (z1 > z2) ? z1 : z2;
   N n2 = (z1 < z2) ? z1 : z2;
-  bool s = (z1 < z2) ? z1.sign : z2.sign;
+  bool s = (z1 > z2) ? za.sign : zb.sign;
 
   Z result;
 
@@ -120,6 +120,8 @@ Z ADD_NN_N(const Z& z1, const Z& z2) {
 Z operator%(const Z& z1, const Z& z2) {
   Z result = z1 / z2;
   result = z1 - (result * z2);
+  if (result.sign == 1)
+    result = z2 + result;
 
   return result;
 }
