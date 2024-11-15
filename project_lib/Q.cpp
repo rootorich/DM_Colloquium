@@ -124,6 +124,22 @@ Q MUL_QQ_Q(const Q& q1, const Q& q2) {
 
 
 /*
+ * Q-8
+*/
+Q operator/(const Q& q1, const Q& q2) {
+  Q temp = q2;
+
+  std::swap(temp.z.digits, temp.n.digits);
+
+  return q1 * temp;
+}
+
+Q DIV_QQ_Q(const Q& q1, const Q& q2) {
+  return q1 / q2;
+}
+
+
+/*
  * Q-Dop-1.1
 */
 Q::Q(uint8_t digit) {
@@ -173,3 +189,4 @@ bool operator==(const Q& q1, const Q& q2) {
 bool operator==(const Q& q, const uint8_t digit) {
   return q.z == digit && q.n == 1;
 }
+

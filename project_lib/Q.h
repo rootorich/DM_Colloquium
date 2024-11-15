@@ -65,6 +65,11 @@ Q MUL_QQ_Q(const Q& q1, const Q& q2);
 */
 
 
+/*
+ * Q-8
+*/
+Q operator/(const Q& q1, const Q& q2);
+Q DIV_QQ_Q(const Q& q1, const Q& q2);
 
 /*
  * Q-Dop-2.1
