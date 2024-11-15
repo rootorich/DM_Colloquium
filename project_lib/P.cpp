@@ -393,18 +393,22 @@ std::string P::to_str() {
     std::string res;
     for (int i = a.size()-1; i > 1; --i) {
         if (a[i] != 0) {
-            if (a[i] != 1 && a[i] != -1)
+            if (a[i] != 1 && a[i] != -1) {
                 res += a[i].to_str();
-            else
+            } else {
                 res += a[i].to_str()[0];
+                res += " ";
+            }
             res += "x^" + std::to_string(i) + " ";
         }
     }
     if (a.size() > 1 && a[1] != 0) {
-        if (a[1] != 1 && a[1] != -1)
+        if (a[1] != 1 && a[1] != -1) {
             res += a[1].to_str();
-        else
+        } else {
             res += a[1].to_str()[0];
+            res += " ";
+        }
         res += "x ";
     }
     if (a[0] != 0 || a.size() == 1) {
@@ -414,6 +418,7 @@ std::string P::to_str() {
       res = res.substr(2); /* delete sign '+' */
     return res;
 }
+
 
 /* 
   End Masha
