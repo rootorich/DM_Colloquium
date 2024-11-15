@@ -109,6 +109,11 @@ P GCF_PP_P(const P& p1, const P& p2);
 P DER_P_P(const P& p);
 
 /*
+ * P-13
+*/
+P NMR_P_P(const P& poly);
+
+/*
  * End Masha
 */
 

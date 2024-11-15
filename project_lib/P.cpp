@@ -246,6 +246,17 @@ P DER_P_P(const P& p) {
 }
 
 /*
+ * P-13
+*/
+P NMR_P_P(const P& p) {
+  P gcf = GCF_PP_P(p, DER_P_P(p));
+  // нод содержит в себе только кратные корни степени k-1
+  P result = p/gcf;
+  
+  return result;
+}
+
+/*
  * End Masha
 */
 
