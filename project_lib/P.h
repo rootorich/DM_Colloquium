@@ -89,6 +89,8 @@ P GCF_PP_P(const P& p1, const P& p2);
 */
 P DER_P_P(const P& p);
 
+void CLR_P_V(P& num);
+
 /*
  * End Masha
 */

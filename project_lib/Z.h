@@ -32,6 +32,8 @@ Z MUL_ZM_Z(const Z& z);
 */
 N TRANS_Z_N(const Z& z);
 
+Z operator*(const Z& z1, const Z& z2);
+
 /*
  * Z-9
 */

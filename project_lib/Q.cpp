@@ -1,5 +1,7 @@
 #include "Q.h"
 
+#include <iostream>
+
 /*
  * Efimova
  * Q-1
@@ -7,7 +9,9 @@
 Q RED_Q_Q(const Q& q){
   Q result;
 
-  N gcd = GCF_NN_N(q.z, q.n);
+  Z gcd;
+  gcd.digits = GCF_NN_N(q.z, q.n).digits;
+  gcd.sign = 0;
 
   result.z = (q.z / gcd);
   result.n = (q.n / gcd);
@@ -56,18 +60,24 @@ Z TRANS_Q_Z(const Q& q){
  * Q-5
 */
 Q operator+(const Q& q1, const Q& q2){
-  Q res;
-  Z t1;
-  Z t2;
+    Q q;
+    Q q3;
+    Q q4;
 
-  res.n = LCM_NN_N(q1.n, q2.n);
+    q.n = LCM_NN_N(q1.n, q2.n);
 
-  t1 = (q1.z * (res.n / q1.n));
-  t2 = (q2.z * (res.n / q2.n));
+    Z mul1, mul2;
+    mul1.digits = (q.n/q1.n).digits;
+    mul2.digits = (q.n/q2.n).digits;
+    mul1.sign = 0;
+    mul2.sign = 0;
 
-  res.z = t1 + t2;
+    q3.z = (q1.z*mul1);
+    q4.z = (q2.z*mul2);
 
-  return RED_Q_Q(res);
+    q.z = q3.z + q4.z;
+
+    return RED_Q_Q(q);
 }
 
 Q ADD_QQ_Q(const Q& q1, const Q& q2){
