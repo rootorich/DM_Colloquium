@@ -5,6 +5,9 @@
 
 struct P {
   std::vector<Q> a;
+
+  P() = default;
+  explicit P(uint8_t digit);
 };
 
 /*
@@ -37,8 +40,8 @@ P MUL_PQ_P(const P& p, const Q& q);
 * Savranraskii Danila
 * P-4
 */
-P operator<<(const P &p, const uint32_t k);
-P MUL_Pxk_P(const P &p, const uint32_t k);
+P operator<<(const P &p, const size_t k);
+P MUL_Pxk_P(const P &p, const size_t k);
 
 /*
  * P-5
@@ -72,6 +75,27 @@ P MUL_PP_P(const P& p1, const P& p2);
 /*
  * End Efimova
 */
+
+
+/*
+ * Kate
+ * P-9
+*/
+P operator/(const P& p1, const P& p2);
+
+P DIV_PP_P(const P& p1, const P& p2);
+
+/*
+ * P-10
+*/
+P operator%(const P& p1, const P& p2);
+
+P MOD_PP_P(const P& p1, const P& p2);
+
+/*
+ * End Kate
+*/
+
 
 /*
  * Masha

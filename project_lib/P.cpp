@@ -16,7 +16,7 @@ P operator+(const P& p1, const P& p2) {
   }
 
   return result;
-}
+} // не удаляет незначащие нули
 
 void operator+=(P& p1, const P& p2) {
   p1 = p1 + p2;
@@ -77,7 +77,7 @@ P MUL_PQ_P(const P& p, const Q& q) {
 * Savranraskii Danila
 * P-4
 */
-P operator<<(const P &p, const uint32_t k) {
+P operator<<(const P &p, const size_t k) {
   P result = p;
 
   Q zero = Q(0);
@@ -86,7 +86,7 @@ P operator<<(const P &p, const uint32_t k) {
   return result;
 }
 
-P MUL_Pxk_P(const P &p, const uint32_t k) {
+P MUL_Pxk_P(const P &p, const size_t k) {
   return p << k;
 }
 
@@ -166,6 +166,51 @@ P MUL_PP_P(const P& p1, const P& p2) {
 
 /*
  * End Efimova
+*/
+
+
+/*
+ * Kate
+ * P-9
+*/
+P operator/(const P& p1, const P& p2) {
+  if (DEG_P_N(p1) < DEG_P_N(p2)) {
+    return P(0);
+  }
+
+  P quotient;
+  P remainder = p1;
+
+  quotient.a.resize(p1.a.size() - p2.a.size() + 1);
+
+  for (size_t i = p1.a.size() - 1; i >= (p2.a.size()) - 1; --i) {
+    if (remainder.a.size() <= i) continue; // не работает, пока нет удаление незначащих нулей
+    size_t shift = i + 1 - p2.a.size();
+    Q new_q = remainder.a[i] / p2.a.back();
+
+    remainder = remainder - (p2 << shift) * new_q; // не работает, пока не удаляются незначащие нули
+
+    quotient.a[shift] = new_q;
+  }
+
+  return quotient;
+}
+
+P DIV_PP_P(const P& p1, const P& p2) { return p1 / p2; }
+
+/*
+ * P-10
+*/
+P operator%(const P& p1, const P& p2) {
+  return p1 - ((p1 / p2) * p2);
+}
+
+P MOD_PP_P(const P& p1, const P& p2) {
+  return p1 % p2;
+}
+
+/*
+ * End Kate
 */
 
 
@@ -252,3 +297,9 @@ bool operator==(const P& p, const uint8_t digit) {
   return false;
 }
 
+/*
+ * P-Dop-2.1
+*/
+P::P(uint8_t digit) {
+  a.emplace_back(Q(digit));
+}
