@@ -4,10 +4,13 @@
  * Efimova
  * Q-1
 */
+using namespace std::rel_ops;
 Q RED_Q_Q(const Q& q){
   Q result;
 
-  N gcd = GCF_NN_N(q.z, q.n);
+  Z gcd;
+  gcd.digits = GCF_NN_N(q.z, q.n).digits;
+  gcd.sign = 0;
 
   result.z = (q.z / gcd);
   result.n = (q.n / gcd);
@@ -56,18 +59,24 @@ Z TRANS_Q_Z(const Q& q){
  * Q-5
 */
 Q operator+(const Q& q1, const Q& q2){
-  Q res;
-  Z t1;
-  Z t2;
+    Q q;
+    Q q3;
+    Q q4;
 
-  res.n = LCM_NN_N(q1.n, q2.n);
+    q.n = LCM_NN_N(q1.n, q2.n);
 
-  t1 = (q1.z * (res.n / q1.n));
-  t2 = (q2.z * (res.n / q2.n));
+    Z mul1, mul2;
+    mul1.digits = (q.n/q1.n).digits;
+    mul2.digits = (q.n/q2.n).digits;
+    mul1.sign = 0;
+    mul2.sign = 0;
 
-  res.z = t1 + t2;
+    q3.z = (q1.z*mul1);
+    q4.z = (q2.z*mul2);
 
-  return RED_Q_Q(res);
+    q.z = q3.z + q4.z;
+
+    return RED_Q_Q(q);
 }
 
 Q ADD_QQ_Q(const Q& q1, const Q& q2){
@@ -121,7 +130,6 @@ Q MUL_QQ_Q(const Q& q1, const Q& q2) {
 /*
  * End Kate
 */
-
 
 /*
  * Q-8
@@ -189,4 +197,41 @@ bool operator==(const Q& q1, const Q& q2) {
 bool operator==(const Q& q, const uint8_t digit) {
   return q.z == digit && q.n == 1;
 }
+bool operator!=(const Q& q1, const uint8_t digit){
+    return !(q1 == digit);
+}
 
+
+/* Masha
+ * Q-Dop-1.3
+*/
+Q::Q(const std::string& str_a, const std::string& str_b) {
+    z = Z(str_a); 
+    n = N(str_b);
+}
+
+Q::Q(const std::string& str) {
+    std::string str_a = str;
+    std::string str_b = "1";
+    if (str.find('/') != std::string::npos) {
+        str_a = str.substr(0, str.find('/'));
+        str_b = str.substr(str.find('/')+1);
+    }
+    z = Z(str_a); 
+    n = N(str_b);
+}
+
+/*
+ * Q-Dop-1.4
+*/
+std::string Q::to_str() {
+    if (N{z.digits} == 0)
+        return "0";
+
+    if (n == 1)
+        return z.to_str();
+    return z.to_str() + '/' + n.to_str();
+}
+/* 
+  End Masha
+*/

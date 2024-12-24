@@ -11,6 +11,10 @@ struct Q {
   explicit Q(uint8_t digit);
   explicit Q(const Z& z, const N& n);
   Q& operator=(const Z& z1);
+  explicit Q(const std::string& str_a, const std::string& str_b);
+  Q(const std::string& str);
+
+  std::string to_str();
 };
 
 /*
@@ -64,12 +68,12 @@ Q MUL_QQ_Q(const Q& q1, const Q& q2);
  * End Kate
 */
 
-
 /*
  * Q-8
 */
 Q operator/(const Q& q1, const Q& q2);
 Q DIV_QQ_Q(const Q& q1, const Q& q2);
+
 
 /*
  * Q-Dop-2.1
@@ -85,5 +89,6 @@ bool operator==(const Q& q1, const Q& q2);
  * Q-Dop-2.3
 */
 bool operator==(const Q& q1, const uint8_t digit);
+bool operator!=(const Q& q1, const uint8_t digit);
 
 #endif

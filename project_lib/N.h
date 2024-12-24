@@ -3,6 +3,7 @@
 #include <utility>
 #include <string>
 #include <algorithm>
+#include <iostream>
 
 #ifndef DM_COLLOQUIUM_N_H
 #define DM_COLLOQUIUM_N_H
@@ -85,9 +86,8 @@ N DIV_NN_Dk(const N& n1, const N& n2);
  * N-3
 */
 void operator++(N& num);
-N operator+(const N& n1, uint8_t digit);
+N operator+(const N& n1, uint8_t);
 N ADD_1N_N(const N& num);
-
 /*
  * N-4
 */
@@ -112,7 +112,7 @@ N MUL_NN_N(const N& n1, const N& n2);
 /*
  * N-9
 */
-N SUB_NDN_N(const N& n1, const N& n2, uint8_t d);
+N SUB_NDN_N(const N& n1, uint8_t d, const N& n2);
 
 /*
  * End Masha
@@ -130,4 +130,3 @@ void CLR_V_V(N& num);
 */
 
 #endif
-

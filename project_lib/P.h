@@ -6,8 +6,10 @@
 struct P {
   std::vector<Q> a;
 
-  P() = default;
-  explicit P(uint8_t digit);
+  P();
+  P(const std::string& str);
+
+  std::string to_str();
 };
 
 /*
@@ -40,8 +42,8 @@ P MUL_PQ_P(const P& p, const Q& q);
 * Savranraskii Danila
 * P-4
 */
-P operator<<(const P &p, const size_t k);
-P MUL_Pxk_P(const P &p, const size_t k);
+P operator<<(const P &p, const uint32_t k);
+P MUL_Pxk_P(const P &p, const uint32_t k);
 
 /*
  * P-5
@@ -76,7 +78,6 @@ P MUL_PP_P(const P& p1, const P& p2);
  * End Efimova
 */
 
-
 /*
  * Kate
  * P-9
@@ -96,7 +97,6 @@ P MOD_PP_P(const P& p1, const P& p2);
  * End Kate
 */
 
-
 /*
  * Masha
  * P-11
@@ -108,10 +108,7 @@ P GCF_PP_P(const P& p1, const P& p2);
 */
 P DER_P_P(const P& p);
 
-/*
- * P-13
-*/
-P NMR_P_P(const P& poly);
+void CLR_P_V(P& num);
 
 /*
  * End Masha
@@ -133,5 +130,7 @@ bool operator==(const P& p1, const P& p2);
  * P-Dop-1.3
 */
 bool operator==(const P& p, const uint8_t digit);
+bool operator!=(const P& p, const uint8_t digit);
+
 
 #endif

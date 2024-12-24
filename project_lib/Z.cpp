@@ -47,7 +47,7 @@ Z operator/(const Z& z1, const Z& z2) {
   Z result;
 
   result = n1 / n2;
-  result.sign = z1.sign != z2.sign;
+  result.sign = (z1.sign != z2.sign);
 
   return result;
 }
@@ -80,23 +80,27 @@ uint8_t POZ_Z_D(const Z& num) {
 /*
  * Z-6
 */
-Z operator+(const Z& z1, const Z& z2) {
-  N n1 = z1;
-  N n2 = z2;
+Z operator+(const Z& za, const Z& zb) {
+  if (za == 0)
+      return zb;
+  if (zb == 0)  
+      return za;
+    
+  Z z1 = ABS_Z_Z(za);
+  Z z2 = ABS_Z_Z(zb);
+  
+  N n1 = (z1 > z2) ? z1 : z2;
+  N n2 = (z1 < z2) ? z1 : z2;
+  bool s = (z1 > z2) ? za.sign : zb.sign;
 
   Z result;
 
-  if (z1.sign == z2.sign) {
+  if (za.sign == zb.sign) {
     result.digits = (n1 + n2).digits;
-    result.sign = z1.sign;
+    result.sign = za.sign;
   } else {
-    if (n1 > n2) {
-      result.digits = (n1 - n2).digits;
-      result.sign = z1.sign;
-    } else {
-      result.digits = (n2 - n1).digits;
-      result.sign = z2.sign;
-    }
+    result.digits = (n1 - n2).digits;
+    result.sign = s;
   }
 
   return result;
@@ -116,6 +120,8 @@ Z ADD_NN_N(const Z& z1, const Z& z2) {
 Z operator%(const Z& z1, const Z& z2) {
   Z result = z1 / z2;
   result = z1 - (result * z2);
+  if (result.sign == 1)
+    result = z2 + result;
 
   return result;
 }
@@ -153,12 +159,12 @@ Z TRANS_N_Z(const N& n) {
  * Z-8
 */
 Z operator*(const Z& z1, const Z& z2) {
-  N n1 = z1;
-  N n2 = z2;
+  N n1{z1.digits};
+  N n2{z2.digits};
   Z result;
 
   result = n1 * n2;
-  result.sign = z1.sign != z2.sign;
+  result.sign = (z1.sign != z2.sign);
 
   return result;
 }
@@ -179,28 +185,35 @@ Z MUL_ZZ_Z(const Z& z1, const Z& z2) {
 /*
  * Z-Dop-1.1
 */
-Z::Z(const std::string& str) {
-  sign = str[0] == '-';
-  size_t i = str.size() - 1;
+Z::Z(const std::string& in) {
+  std::string str = in;
+  sign = (str[0] == '-');
+  if (isdigit(str[0]))
+    str = '+' + str;
 
-  do {
+  for (size_t i = str.size()-1; i > 0; --i) {
     digits.push_back(str[i] - '0');
-  } while (i-- != sign);
+  }
 }
 
 /*
  * Z-Dop-1.2
 */
 std::string Z::to_str() {
+  if (N{digits} == 0)
+    return "0";
+
   std::string str;
   if (sign) {
     str += '-';
+  } else {
+    str += '+';
   }
+  str += ' ';
   size_t i = digits.size() - 1;
 
   do {
     str += char(digits[i] + '0');
-
   } while (i-- != 0);
 
   return str;
